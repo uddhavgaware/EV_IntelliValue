@@ -178,28 +178,75 @@ results_df = load_model_results(str(RESULTS_FILE))
 MODEL_CATALOG = {
     "Tata": {
         "Nexon EV": {"battery": 40.5, "range": 453, "curated_price": 1450000},
-        "Tiago EV": {"battery": 24.0, "range": 315, "curated_price": 950000},
-        "Tigor EV": {"battery": 26.0, "range": 315, "curated_price": 1100000},
+        "Curvv EV": {"battery": 55.0, "range": 585, "curated_price": 1750000},
+        "Punch EV": {"battery": 35.0, "range": 421, "curated_price": 1099000},
+        "Tiago EV": {"battery": 24.0, "range": 315, "curated_price": 899000},
+        "Tigor EV": {"battery": 26.0, "range": 315, "curated_price": 1150000},
     },
     "MG": {
-        "ZS EV": {"battery": 50.3, "range": 461, "curated_price": 2200000},
-        "Comet EV": {"battery": 17.3, "range": 230, "curated_price": 720000},
+        "Windsor EV": {"battery": 38.0, "range": 331, "curated_price": 1350000},
+        "ZS EV": {"battery": 50.3, "range": 461, "curated_price": 2150000},
+        "Comet EV": {"battery": 17.3, "range": 230, "curated_price": 699000},
     },
     "Mahindra": {
-        "XUV400 EV": {"battery": 39.4, "range": 456, "curated_price": 1650000},
+        "XUV400 EV": {"battery": 39.4, "range": 456, "curated_price": 1550000},
+        "BE 6e": {"battery": 59.0, "range": 550, "curated_price": 1890000},
+        "XEV 9e": {"battery": 79.0, "range": 656, "curated_price": 2190000},
         "eVerito": {"battery": 21.2, "range": 140, "curated_price": 600000},
     },
     "Hyundai": {
-        "Kona Electric": {"battery": 39.2, "range": 452, "curated_price": 2350000},
+        "Creta EV": {"battery": 45.0, "range": 473, "curated_price": 1790000},
         "Ioniq 5": {"battery": 72.6, "range": 631, "curated_price": 4600000},
+        "Kona Electric": {"battery": 39.2, "range": 452, "curated_price": 2380000},
     },
     "BYD": {
-        "Atto 3": {"battery": 60.5, "range": 521, "curated_price": 3400000},
+        "Seal": {"battery": 82.5, "range": 650, "curated_price": 4100000},
+        "Atto 3": {"battery": 60.5, "range": 521, "curated_price": 2499000},
+        "eMax 7": {"battery": 71.8, "range": 530, "curated_price": 2690000},
         "e6": {"battery": 71.7, "range": 500, "curated_price": 2900000},
+    },
+    "Kia": {
+        "EV6": {"battery": 77.4, "range": 708, "curated_price": 6095000},
+        "EV9": {"battery": 99.8, "range": 561, "curated_price": 12900000},
+    },
+    "Citroën": {
+        "ë-C3": {"battery": 29.2, "range": 320, "curated_price": 1160000},
+        "Basalt EV": {"battery": 35.0, "range": 360, "curated_price": 1350000},
+    },
+    "BMW": {
+        "iX1": {"battery": 66.5, "range": 440, "curated_price": 6690000},
+        "i4": {"battery": 83.9, "range": 590, "curated_price": 7250000},
+        "iX": {"battery": 111.5, "range": 630, "curated_price": 12100000},
+        "i7": {"battery": 101.7, "range": 625, "curated_price": 20300000},
+    },
+    "Mercedes-Benz": {
+        "EQA": {"battery": 66.5, "range": 560, "curated_price": 6600000},
+        "EQB": {"battery": 70.5, "range": 535, "curated_price": 7090000},
+        "EQE SUV": {"battery": 90.6, "range": 550, "curated_price": 13900000},
+        "EQS": {"battery": 107.8, "range": 857, "curated_price": 16200000},
+    },
+    "Volvo": {
+        "EX40": {"battery": 69.0, "range": 475, "curated_price": 5690000},
+        "EC40": {"battery": 78.0, "range": 530, "curated_price": 6295000},
+    },
+    "Audi": {
+        "Q8 e-tron": {"battery": 114.0, "range": 600, "curated_price": 11500000},
+        "e-tron GT": {"battery": 93.4, "range": 500, "curated_price": 17200000},
+    },
+    "Porsche": {
+        "Taycan": {"battery": 79.2, "range": 444, "curated_price": 16100000},
+        "Macan EV": {"battery": 100.0, "range": 613, "curated_price": 16500000},
+    },
+    "Tesla": {
+        "Model 3": {"battery": 60.0, "range": 513, "curated_price": 5500000},
+        "Model Y": {"battery": 60.0, "range": 455, "curated_price": 6000000},
     },
 }
 
-REGIONS = ["Pune", "Mumbai", "Delhi", "Bengaluru", "Hyderabad", "Chennai"]
+REGIONS = [
+    "Mumbai", "Pune", "Delhi", "Bengaluru", "Hyderabad", "Chennai",
+    "Ahmedabad", "Kolkata", "Kochi", "Jaipur"
+]
 MONTH_NAMES = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -297,11 +344,12 @@ if active_tab == "Valuation Predictor":
         c7, c8 = st.columns(2)
         with c7:
             est_health = max(65, int(100 - (vehicle_age * 1.8) - (km_driven / 25000)))
-            battery_health = st.slider(
+            battery_health = st.number_input(
                 "Battery State of Health (SoH %)",
-                min_value=65,
+                min_value=50,
                 max_value=100,
                 value=int(np.clip(est_health, 70, 100)),
+                step=1,
             )
         with c8:
             region = st.selectbox("Target Regional Market", REGIONS, index=0)

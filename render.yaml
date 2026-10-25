@@ -1,8 +1,32 @@
 services:
-  # ── Streamlit Backend (Web Service) ──────────────────────────────
+  # ── 1. FastAPI Backend API (REST ML Valuation Service) ───────────
+  - type: web
+    name: ev-intellivalue-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+
+  # ── 2. Frontend Landing Page & Calculator (Static Site) ───────────
+  - type: web
+    name: ev-intellivalue-frontend
+    runtime: static
+    staticPublishPath: ./frontend
+    buildCommand: ""
+    envVars:
+      - key: API_URL
+        value: https://ev-intellivalue-api.onrender.com
+      - key: APP_URL
+        value: https://ev-intellivalue-app.onrender.com
+
+  # ── 3. Full Streamlit Analytics Dashboard ─────────────────────────
   - type: web
     name: ev-intellivalue-app
     runtime: python
+    plan: free
     buildCommand: pip install -r requirements.txt
     startCommand: streamlit run app.py --server.port=$PORT --server.address=0.0.0.0 --server.headless=true
     envVars:
@@ -12,13 +36,3 @@ services:
         value: false
       - key: STREAMLIT_SERVER_HEADLESS
         value: true
-
-  # ── Frontend Static Site ──────────────────────────────────────────
-  - type: web
-    name: ev-intellivalue-frontend
-    runtime: static
-    staticPublishPath: ./frontend
-    buildCommand: ""           # No build needed for plain HTML/CSS/JS
-    envVars:
-      - key: APP_URL
-        value: https://ev-intellivalue-app.onrender.com   # Streamlit app URL

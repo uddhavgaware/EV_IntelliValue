@@ -45,7 +45,7 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
         GitHub
       </a>
-      <a href="https://ev-intellivalue.onrender.com" target="_blank" class="btn btn-primary">Launch App</a>
+      <a href="https://ev-intellivalue-app.onrender.com" target="_blank" class="btn btn-primary app-link">Launch App</a>
     </div>
     <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
   </div>
@@ -63,7 +63,7 @@
     <h1 class="hero-title animate-fade-up delay-1">Know the True Value of<br/><span class="gradient-text">Every Pre-Owned EV</span></h1>
     <p class="hero-sub animate-fade-up delay-2">Instant ML-powered resale price estimates, battery state-of-health modelling,<br class="hide-sm"/>and real-time market intelligence for Indian electric vehicles.</p>
     <div class="hero-actions animate-fade-up delay-3">
-      <a href="https://ev-intellivalue.onrender.com" target="_blank" class="btn btn-primary btn-lg">
+      <a href="https://ev-intellivalue-app.onrender.com" target="_blank" class="btn btn-primary btn-lg app-link">
         Launch App <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
       <a href="#calculator" class="btn btn-outline btn-lg">Try Calculator</a>
@@ -103,57 +103,149 @@
     </div>
     <div class="calc-card glass">
       <div class="calc-form">
+        <div class="calc-status-bar" id="calcStatusBar">
+          <span class="status-pill">
+            <span class="status-dot waking" id="statusDot"></span>
+            <span id="statusText">Connecting to ML Engine...</span>
+          </span>
+          <span style="font-size:0.72rem;color:var(--text-dim);" id="serverEndpointLabel">API: /api/predict</span>
+        </div>
+
+        <!-- ── Quick Car Search Box ── -->
+        <div class="form-group search-group">
+          <label for="carSearchInput">Quick Search EV (Any Brand or Model)</label>
+          <div class="search-input-wrap">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="carSearchInput" class="form-control search-input" placeholder="Type to search (e.g. Nexon, Windsor, Curvv, Seal, Ioniq, Punch, EV6, Atto 3, iX1...)" autocomplete="off"/>
+            <button type="button" id="clearSearchBtn" class="clear-search-btn" title="Clear search">✕</button>
+          </div>
+          <div id="searchResultsList" class="search-results-list" style="display:none;"></div>
+        </div>
+
         <div class="form-row">
           <div class="form-group">
             <label for="calc-brand">Brand</label>
             <select id="calc-brand" class="form-control">
-              <option value="tata">Tata</option>
-              <option value="mg">MG</option>
-              <option value="mahindra">Mahindra</option>
+              <option value="tata">Tata Motors</option>
+              <option value="mg">MG Motor</option>
+              <option value="mahindra">Mahindra Electric</option>
               <option value="hyundai">Hyundai</option>
-              <option value="byd">BYD</option>
+              <option value="byd">BYD India</option>
+              <option value="kia">Kia</option>
+              <option value="citroen">Citroën</option>
+              <option value="bmw">BMW i</option>
+              <option value="mercedes">Mercedes-Benz EQ</option>
+              <option value="volvo">Volvo Recharge</option>
+              <option value="audi">Audi e-tron</option>
+              <option value="porsche">Porsche</option>
+              <option value="tesla">Tesla</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="calc-year">Year</label>
+            <label for="calc-model">Model</label>
+            <select id="calc-model" class="form-control">
+              <option value="Nexon EV">Nexon EV</option>
+              <option value="Curvv EV">Curvv EV</option>
+              <option value="Punch EV">Punch EV</option>
+              <option value="Tiago EV">Tiago EV</option>
+              <option value="Tigor EV">Tigor EV</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="calc-year">Manufacturing Year</label>
             <select id="calc-year" class="form-control">
-              <option value="2024">2024</option><option value="2023">2023</option>
-              <option value="2022">2022</option><option value="2021">2021</option>
-              <option value="2020">2020</option><option value="2019">2019</option>
+              <option value="2026">2026</option>
+              <option value="2025">2025</option>
+              <option value="2024">2024</option>
+              <option value="2023" selected>2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+              <option value="2019">2019</option>
               <option value="2018">2018</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="calc-region">Market Region</label>
+            <select id="calc-region" class="form-control">
+              <option value="Mumbai" selected>Mumbai</option>
+              <option value="Pune">Pune</option>
+              <option value="Delhi">Delhi NCR</option>
+              <option value="Bengaluru">Bengaluru</option>
+              <option value="Hyderabad">Hyderabad</option>
+              <option value="Chennai">Chennai</option>
+              <option value="Ahmedabad">Ahmedabad</option>
+              <option value="Kolkata">Kolkata</option>
+              <option value="Kochi">Kochi / Kerala</option>
+              <option value="Jaipur">Jaipur</option>
             </select>
           </div>
         </div>
         <div class="form-group">
-          <label for="calc-battery">Battery Capacity: <span id="battery-val">40</span> kWh</label>
-          <input type="range" id="calc-battery" class="slider" min="17" max="70" value="40" step="1"/>
-          <div class="slider-ticks"><span>17 kWh</span><span>70 kWh</span></div>
+          <div class="field-header">
+            <label for="calc-battery-input">Battery Capacity</label>
+            <div class="input-with-unit">
+              <input type="number" id="calc-battery-input" class="number-box" min="15" max="120" step="0.5" value="40.5" placeholder="40.5"/>
+              <span class="unit-tag">kWh</span>
+            </div>
+          </div>
+          <input type="range" id="calc-battery" class="slider" min="15" max="100" value="40.5" step="0.5"/>
+          <div class="slider-ticks"><span>15 kWh</span><span>100 kWh</span></div>
         </div>
+
         <div class="form-group">
-          <label for="calc-health">Battery Health: <span id="health-val">85</span>%</label>
-          <input type="range" id="calc-health" class="slider" min="65" max="100" value="85" step="1"/>
-          <div class="slider-ticks"><span>65%</span><span>100%</span></div>
+          <div class="field-header">
+            <label for="calc-health-input">Battery Health (State-of-Health)</label>
+            <div class="input-with-unit">
+              <input type="number" id="calc-health-input" class="number-box" min="50" max="100" step="1" value="85" placeholder="85"/>
+              <span class="unit-tag">%</span>
+            </div>
+          </div>
+          <input type="range" id="calc-health" class="slider" min="60" max="100" value="85" step="1"/>
+          <div class="slider-ticks"><span>60% (Degraded)</span><span>100% (Factory)</span></div>
         </div>
+
         <div class="form-group">
-          <label for="calc-km">Km Driven: <span id="km-val">30,000</span> km</label>
-          <input type="range" id="calc-km" class="slider" min="1000" max="120000" value="30000" step="1000"/>
-          <div class="slider-ticks"><span>1,000 km</span><span>1,20,000 km</span></div>
+          <div class="field-header">
+            <label for="calc-km-input">Odometer Mileage</label>
+            <div class="input-with-unit">
+              <input type="number" id="calc-km-input" class="number-box" min="0" max="500000" step="500" value="30000" placeholder="30000"/>
+              <span class="unit-tag">km</span>
+            </div>
+          </div>
+          <input type="range" id="calc-km" class="slider" min="1000" max="150000" value="30000" step="1000"/>
+          <div class="slider-ticks"><span>1,000 km</span><span>1,50,000+ km</span></div>
         </div>
-        <button class="btn btn-primary btn-full" id="calc-btn">⚡ Calculate Estimated Value</button>
+        <button class="btn btn-primary btn-full" id="calc-btn">⚡ Compute ML Valuation</button>
       </div>
       <div class="calc-result" id="calcResult">
         <div class="result-placeholder">
           <div class="result-icon">🔋</div>
-          <p>Adjust the sliders and click Calculate to see your estimate</p>
+          <p>Adjust parameters and click Compute to generate real-time machine learning valuation</p>
         </div>
         <div class="result-output" id="resultOutput" style="display:none">
-          <div class="result-label">Estimated Resale Value</div>
-          <div class="result-range">
-            <div class="range-item low"><span>Low</span><strong id="res-low">—</strong></div>
-            <div class="range-item mid"><span>Expected</span><strong id="res-mid">—</strong></div>
-            <div class="range-item high"><span>High</span><strong id="res-high">—</strong></div>
+          <div class="result-badge-row">
+            <div class="result-label" style="margin-bottom:0;">Estimated Fair Resale Value</div>
+            <div class="result-source-badge" id="resultSourceBadge">⚡ ML Model Verified (97.6% R²)</div>
           </div>
-          <div class="result-note">⚠️ Approximate estimate only. <a href="https://ev-intellivalue.onrender.com" target="_blank">Use full app</a> for precise ML valuation.</div>
+          <div class="result-range">
+            <div class="range-item low"><span>Conservative</span><strong id="res-low">—</strong></div>
+            <div class="range-item mid"><span>Expected Fair</span><strong id="res-mid">—</strong></div>
+            <div class="range-item high"><span>Optimistic</span><strong id="res-high">—</strong></div>
+          </div>
+          <div class="result-meta-grid">
+            <div class="meta-box">
+              <div class="meta-box-label">Value Retained</div>
+              <div class="meta-box-val" id="res-retention" style="color:var(--accent);">—</div>
+            </div>
+            <div class="meta-box">
+              <div class="meta-box-label">Effective Real Range</div>
+              <div class="meta-box-val" id="res-eff-range" style="color:var(--blue);">—</div>
+            </div>
+          </div>
+          <div class="result-note">✨ Direct ML model inference. <a href="https://ev-intellivalue-app.onrender.com" target="_blank" class="app-link">Launch Full Dashboard</a> for battery degradation curves and TCO analysis.</div>
           <div class="result-factors">
             <div class="factor-row"><span>Age Depreciation</span><span id="f-age" class="factor-val red">—</span></div>
             <div class="factor-row"><span>Battery Deduction</span><span id="f-bat" class="factor-val amber">—</span></div>
@@ -512,7 +604,7 @@
       <h2>Ready to Find Out What Your EV is Worth?</h2>
       <p>Launch the full AI-powered app and get a precise valuation in under 10 seconds.</p>
       <div class="cta-actions">
-        <a href="https://ev-intellivalue.onrender.com" target="_blank" class="btn btn-primary btn-lg">Launch EV IntelliValue <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="https://ev-intellivalue-app.onrender.com" target="_blank" class="btn btn-primary btn-lg app-link">Launch EV IntelliValue <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         <a href="https://github.com/uddhavgaware/EV_IntelliValue" target="_blank" class="btn btn-outline btn-lg">⭐ Star on GitHub</a>
       </div>
     </div>
@@ -533,7 +625,7 @@
           <li><a href="#calculator">Price Calculator</a></li>
           <li><a href="#features">Features</a></li>
           <li><a href="#models-gallery">EV Gallery</a></li>
-          <li><a href="https://ev-intellivalue.onrender.com" target="_blank">Launch App</a></li>
+          <li><a href="https://ev-intellivalue-app.onrender.com" target="_blank" class="app-link">Launch App</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -559,6 +651,15 @@
   </div>
 </footer>
 
+<script>
+  // ── EV IntelliValue Backend Configuration ──
+  window.EV_CONFIG = {
+    // Backend FastAPI URL (paste your deployed Render backend URL here if different):
+    API_URL: "https://ev-intellivalue-api.onrender.com",
+    // Full Streamlit Dashboard URL:
+    APP_URL: "https://ev-intellivalue-app.onrender.com"
+  };
+</script>
 <script src="script.js"></script>
 </body>
 </html>
