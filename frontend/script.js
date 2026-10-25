@@ -128,7 +128,7 @@ function getApiBaseUrl() {
   const stored = localStorage.getItem('EV_API_URL');
   if (stored) return stored;
 
-  return 'https://ev-intellivalue-api.onrender.com';
+  return 'https://ev-intellivalue-backend.onrender.com';
 }
 
 function getAppDashboardUrl() {

@@ -18,7 +18,7 @@ services:
     buildCommand: ""
     envVars:
       - key: API_URL
-        value: https://ev-intellivalue-api.onrender.com
+        value: https://ev-intellivalue-backend.onrender.com
       - key: APP_URL
         value: https://ev-intellivalue-app.onrender.com
 
