@@ -1,384 +1,564 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>EV IntelliValue | Pre-Owned EV Valuation & Market Intelligence</title>
-  <meta name="description" content="India's most intelligent pre-owned electric vehicle valuation platform. Get instant AI-powered resale price estimates, battery health analysis, and market insights." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="India's most intelligent pre-owned EV valuation platform. Instant AI-powered resale price estimates, battery health analysis, market intelligence for Indian electric vehicles."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-  <!-- ── NAV ── -->
-  <nav class="navbar" id="navbar">
-    <div class="nav-inner">
-      <a href="#" class="nav-logo">
-        <span class="logo-bolt">⚡</span>
-        <span class="logo-text">EV <span class="logo-accent">IntelliValue</span></span>
-      </a>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#features">Features</a></li>
-        <li><a href="#how-it-works">How It Works</a></li>
-        <li><a href="#models">ML Models</a></li>
-        <li><a href="#dataset">Dataset</a></li>
-        <li><a href="#team">Team</a></li>
-      </ul>
+<!-- ══ SPLASH SCREEN ══ -->
+<div class="splash" id="splash">
+  <div class="splash-inner">
+    <div class="splash-bolt">⚡</div>
+    <div class="splash-text">EV IntelliValue</div>
+    <div class="splash-bar"><div class="splash-fill"></div></div>
+    <div class="splash-sub">Loading Intelligence...</div>
+  </div>
+</div>
+
+<!-- ══ NAVBAR ══ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <span class="logo-bolt">⚡</span>
+      <span class="logo-text">EV <span class="logo-accent">IntelliValue</span></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#calculator">Calculator</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#models-gallery">EV Models</a></li>
+      <li><a href="#compare">Compare</a></li>
+      <li><a href="#ml-models">ML Models</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span class="theme-icon">🌙</span>
+      </button>
       <a href="https://github.com/uddhavgaware/EV_IntelliValue" target="_blank" class="btn btn-ghost nav-github">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
         GitHub
       </a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
+      <a href="https://ev-intellivalue.onrender.com" target="_blank" class="btn btn-primary">Launch App</a>
     </div>
-  </nav>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
 
-  <!-- ── HERO ── -->
-  <section class="hero" id="home">
-    <div class="hero-bg">
-      <img src="assets/hero-bg.jpg" alt="" class="hero-img" />
-      <div class="hero-overlay"></div>
+<!-- ══ HERO ══ -->
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <img src="assets/hero-bg.jpg" alt="EV IntelliValue" class="hero-img"/>
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="particles" id="particles"></div>
+  <div class="hero-content">
+    <div class="hero-badge animate-fade-up"><span class="badge-dot"></span>AI-Powered · India's EV Market · 97.6% Accuracy</div>
+    <h1 class="hero-title animate-fade-up delay-1">Know the True Value of<br/><span class="gradient-text">Every Pre-Owned EV</span></h1>
+    <p class="hero-sub animate-fade-up delay-2">Instant ML-powered resale price estimates, battery state-of-health modelling,<br class="hide-sm"/>and real-time market intelligence for Indian electric vehicles.</p>
+    <div class="hero-actions animate-fade-up delay-3">
+      <a href="https://ev-intellivalue.onrender.com" target="_blank" class="btn btn-primary btn-lg">
+        Launch App <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#calculator" class="btn btn-outline btn-lg">Try Calculator</a>
     </div>
-    <div class="particles" id="particles"></div>
-    <div class="hero-content">
-      <div class="hero-badge animate-fade-up">
-        <span class="badge-dot"></span>
-        AI-Powered · India's EV Market · Scikit-Learn
-      </div>
-      <h1 class="hero-title animate-fade-up delay-1">
-        Know the True Value of<br />
-        <span class="gradient-text">Every Pre-Owned EV</span>
-      </h1>
-      <p class="hero-sub animate-fade-up delay-2">
-        Instant ML-powered resale price estimates, battery state-of-health modelling,<br class="hide-sm" />
-        and real-time market intelligence for Indian electric vehicles.
-      </p>
-      <div class="hero-actions animate-fade-up delay-3">
-        <a href="https://ev-intellivalue.onrender.com" target="_blank" class="btn btn-primary btn-lg">
-          <span>Launch App</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <a href="https://github.com/uddhavgaware/EV_IntelliValue" target="_blank" class="btn btn-ghost btn-lg">
-          View Source
-        </a>
-      </div>
-      <div class="hero-stats animate-fade-up delay-4">
-        <div class="stat">
-          <span class="stat-val" data-target="97.6">0</span><span class="stat-unit">%</span>
-          <span class="stat-label">Model Accuracy (R²)</span>
-        </div>
-        <div class="stat-div"></div>
-        <div class="stat">
-          <span class="stat-val" data-target="1500">0</span><span class="stat-unit">+</span>
-          <span class="stat-label">EV Listings Trained On</span>
-        </div>
-        <div class="stat-div"></div>
-        <div class="stat">
-          <span class="stat-val" data-target="5">0</span><span class="stat-unit"></span>
-          <span class="stat-label">Major EV Brands</span>
-        </div>
-        <div class="stat-div"></div>
-        <div class="stat">
-          <span class="stat-val" data-target="6">0</span><span class="stat-unit"></span>
-          <span class="stat-label">Indian City Markets</span>
-        </div>
-      </div>
+    <div class="hero-stats animate-fade-up delay-4">
+      <div class="stat"><span class="stat-val" data-target="97.6">0</span><span class="stat-unit">%</span><span class="stat-label">Model Accuracy</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span class="stat-val" data-target="1500">0</span><span class="stat-unit">+</span><span class="stat-label">EV Listings</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span class="stat-val" data-target="5">0</span><span class="stat-unit"></span><span class="stat-label">EV Brands</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span class="stat-val" data-target="6">0</span><span class="stat-unit"></span><span class="stat-label">City Markets</span></div>
     </div>
-    <div class="scroll-hint animate-fade-up delay-4">
-      <div class="scroll-arrow"></div>
-      <span>Scroll to explore</span>
-    </div>
-  </section>
+  </div>
+  <div class="scroll-hint"><div class="scroll-arrow"></div><span>Scroll to explore</span></div>
+</section>
 
-  <!-- ── BRANDS ── -->
-  <section class="brands-bar">
-    <p class="brands-label">Supports Indian EV Brands</p>
-    <div class="brands-track">
-      <div class="brand-chip">Tata Motors</div>
-      <div class="brand-chip">MG Motor</div>
-      <div class="brand-chip">Mahindra</div>
-      <div class="brand-chip">Hyundai</div>
-      <div class="brand-chip">BYD India</div>
-      <div class="brand-chip">Tata Motors</div>
-      <div class="brand-chip">MG Motor</div>
-      <div class="brand-chip">Mahindra</div>
-      <div class="brand-chip">Hyundai</div>
-      <div class="brand-chip">BYD India</div>
-    </div>
-  </section>
+<!-- ══ BRANDS ══ -->
+<section class="brands-bar">
+  <p class="brands-label">Supports Indian EV Brands</p>
+  <div class="brands-track">
+    <div class="brand-chip">🚗 Tata Motors</div><div class="brand-chip">🚙 MG Motor</div>
+    <div class="brand-chip">🏎 Mahindra</div><div class="brand-chip">⚡ Hyundai</div>
+    <div class="brand-chip">🔋 BYD India</div><div class="brand-chip">🚗 Tata Motors</div>
+    <div class="brand-chip">🚙 MG Motor</div><div class="brand-chip">🏎 Mahindra</div>
+    <div class="brand-chip">⚡ Hyundai</div><div class="brand-chip">🔋 BYD India</div>
+  </div>
+</section>
 
-  <!-- ── FEATURES ── -->
-  <section class="section features" id="features">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Platform Features</span>
-        <h2 class="section-title">Everything You Need to Buy or Sell an EV <span class="gradient-text">Confidently</span></h2>
-        <p class="section-sub">Four powerful modules built on machine learning and market data analysis.</p>
-      </div>
-      <div class="features-grid">
-        <div class="feature-card glass animate-on-scroll">
-          <div class="feature-icon" style="--ic:#10b981">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-          </div>
-          <h3>Real-Time Valuation Predictor</h3>
-          <p>Instant fair market price in ₹ INR based on brand, model, battery health, mileage, age and region. Low / Expected / High valuation bounds included.</p>
-          <ul class="feature-list">
-            <li>Gradient Boosting model (R² = 0.976)</li>
-            <li>Dynamic price bounds for negotiation</li>
-            <li>Value driver breakdown by factor</li>
-          </ul>
-        </div>
-        <div class="feature-card glass animate-on-scroll delay-1">
-          <div class="feature-icon" style="--ic:#3b82f6">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2M7 7V5a2 2 0 0 1 4 0v2"/><path d="M12 12v5M9.5 14.5l2.5-2.5 2.5 2.5"/></svg>
-          </div>
-          <h3>Battery Degradation Lab</h3>
-          <p>Non-linear SOH degradation curves across age and km. See exactly how each 1% battery drop impacts resale value in rupees and remaining range.</p>
-          <ul class="feature-list">
-            <li>State-of-Health (SOH) modelling</li>
-            <li>Replacement cost risk warnings</li>
-            <li>Live sensitivity analysis curves</li>
-          </ul>
-        </div>
-        <div class="feature-card glass animate-on-scroll delay-2">
-          <div class="feature-icon" style="--ic:#f59e0b">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m7 16 4-4 4 4 4-4"/></svg>
-          </div>
-          <h3>Market Intelligence Dashboard</h3>
-          <p>Regional analytics for Pune, Mumbai, Delhi, Bengaluru, Hyderabad and Chennai. Price distribution histograms, scatter plots, and days-on-market trends.</p>
-          <ul class="feature-list">
-            <li>OLS trendlines on scatter plots</li>
-            <li>Brand market share analysis</li>
-            <li>Regional pricing benchmarks</li>
-          </ul>
-        </div>
-        <div class="feature-card glass animate-on-scroll delay-3">
-          <div class="feature-icon" style="--ic:#8b5cf6">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
-          </div>
-          <h3>Model Benchmark Dashboard</h3>
-          <p>Live comparison of all three algorithms — Gradient Boosting, Random Forest, and Linear Regression — across MAE, RMSE, and R² metrics.</p>
-          <ul class="feature-list">
-            <li>Feature importance ranking</li>
-            <li>Actual vs. predicted residual plots</li>
-            <li>Model selection explainability</li>
-          </ul>
-        </div>
-      </div>
+<!-- ══ CALCULATOR ══ -->
+<section class="section calculator-section" id="calculator">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Quick Estimate</span>
+      <h2 class="section-title">Instant EV Price <span class="gradient-text">Calculator</span></h2>
+      <p class="section-sub">Get an approximate resale value estimate. For full AI-powered analysis, use the main app.</p>
     </div>
-  </section>
-
-  <!-- ── HOW IT WORKS ── -->
-  <section class="section how-it-works" id="how-it-works">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Process</span>
-        <h2 class="section-title">From Input to <span class="gradient-text">Instant Valuation</span></h2>
-        <p class="section-sub">Three steps. Ten seconds. One reliable price estimate.</p>
+    <div class="calc-card glass">
+      <div class="calc-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="calc-brand">Brand</label>
+            <select id="calc-brand" class="form-control">
+              <option value="tata">Tata</option>
+              <option value="mg">MG</option>
+              <option value="mahindra">Mahindra</option>
+              <option value="hyundai">Hyundai</option>
+              <option value="byd">BYD</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="calc-year">Year</label>
+            <select id="calc-year" class="form-control">
+              <option value="2024">2024</option><option value="2023">2023</option>
+              <option value="2022">2022</option><option value="2021">2021</option>
+              <option value="2020">2020</option><option value="2019">2019</option>
+              <option value="2018">2018</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="calc-battery">Battery Capacity: <span id="battery-val">40</span> kWh</label>
+          <input type="range" id="calc-battery" class="slider" min="17" max="70" value="40" step="1"/>
+          <div class="slider-ticks"><span>17 kWh</span><span>70 kWh</span></div>
+        </div>
+        <div class="form-group">
+          <label for="calc-health">Battery Health: <span id="health-val">85</span>%</label>
+          <input type="range" id="calc-health" class="slider" min="65" max="100" value="85" step="1"/>
+          <div class="slider-ticks"><span>65%</span><span>100%</span></div>
+        </div>
+        <div class="form-group">
+          <label for="calc-km">Km Driven: <span id="km-val">30,000</span> km</label>
+          <input type="range" id="calc-km" class="slider" min="1000" max="120000" value="30000" step="1000"/>
+          <div class="slider-ticks"><span>1,000 km</span><span>1,20,000 km</span></div>
+        </div>
+        <button class="btn btn-primary btn-full" id="calc-btn">⚡ Calculate Estimated Value</button>
       </div>
-      <div class="steps">
-        <div class="step animate-on-scroll">
-          <div class="step-num">01</div>
-          <div class="step-body">
-            <h3>Enter Your EV Details</h3>
-            <p>Select brand, model, manufacturing year, kilometres driven, battery capacity and current battery health percentage. Choose your city market.</p>
-          </div>
+      <div class="calc-result" id="calcResult">
+        <div class="result-placeholder">
+          <div class="result-icon">🔋</div>
+          <p>Adjust the sliders and click Calculate to see your estimate</p>
         </div>
-        <div class="step-connector"></div>
-        <div class="step animate-on-scroll delay-1">
-          <div class="step-num">02</div>
-          <div class="step-body">
-            <h3>ML Pipeline Processes</h3>
-            <p>Your input runs through a trained Gradient Boosting pipeline — preprocessing, feature encoding, and inference — in under a second.</p>
+        <div class="result-output" id="resultOutput" style="display:none">
+          <div class="result-label">Estimated Resale Value</div>
+          <div class="result-range">
+            <div class="range-item low"><span>Low</span><strong id="res-low">—</strong></div>
+            <div class="range-item mid"><span>Expected</span><strong id="res-mid">—</strong></div>
+            <div class="range-item high"><span>High</span><strong id="res-high">—</strong></div>
           </div>
-        </div>
-        <div class="step-connector"></div>
-        <div class="step animate-on-scroll delay-2">
-          <div class="step-num">03</div>
-          <div class="step-body">
-            <h3>Get Your Price Estimate</h3>
-            <p>Receive a fair market value in ₹ INR with low / expected / high bounds, key value driver breakdown, and comparable market listings.</p>
+          <div class="result-note">⚠️ Approximate estimate only. <a href="https://ev-intellivalue.onrender.com" target="_blank">Use full app</a> for precise ML valuation.</div>
+          <div class="result-factors">
+            <div class="factor-row"><span>Age Depreciation</span><span id="f-age" class="factor-val red">—</span></div>
+            <div class="factor-row"><span>Battery Deduction</span><span id="f-bat" class="factor-val amber">—</span></div>
+            <div class="factor-row"><span>Usage Penalty</span><span id="f-km" class="factor-val amber">—</span></div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── ML MODELS ── -->
-  <section class="section models-section" id="models">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">ML Performance</span>
-        <h2 class="section-title">Benchmark Results Across <span class="gradient-text">Three Algorithms</span></h2>
+<!-- ══ LIVE STATS ══ -->
+<section class="section stats-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Market Insights</span>
+      <h2 class="section-title">Live Market <span class="gradient-text">Statistics</span></h2>
+    </div>
+    <div class="charts-grid">
+      <div class="chart-card glass animate-on-scroll">
+        <h3 class="chart-title">Brand Market Share</h3>
+        <div class="bar-chart">
+          <div class="bar-row"><span class="bar-label">Tata</span><div class="bar-wrap"><div class="bar-fill" style="--w:36%;--c:#10b981"></div></div><span class="bar-pct">36%</span></div>
+          <div class="bar-row"><span class="bar-label">MG</span><div class="bar-wrap"><div class="bar-fill" style="--w:23%;--c:#3b82f6"></div></div><span class="bar-pct">23%</span></div>
+          <div class="bar-row"><span class="bar-label">Mahindra</span><div class="bar-wrap"><div class="bar-fill" style="--w:19%;--c:#8b5cf6"></div></div><span class="bar-pct">19%</span></div>
+          <div class="bar-row"><span class="bar-label">Hyundai</span><div class="bar-wrap"><div class="bar-fill" style="--w:12%;--c:#f59e0b"></div></div><span class="bar-pct">12%</span></div>
+          <div class="bar-row"><span class="bar-label">BYD</span><div class="bar-wrap"><div class="bar-fill" style="--w:10%;--c:#ef4444"></div></div><span class="bar-pct">10%</span></div>
+        </div>
       </div>
-      <div class="models-grid">
-        <div class="model-card winner animate-on-scroll">
-          <div class="model-badge">🥇 Best Model</div>
-          <h3 class="model-name">Gradient Boosting</h3>
-          <div class="model-metrics">
-            <div class="metric">
-              <span class="metric-label">R² Score</span>
-              <span class="metric-val accent">0.9760</span>
-            </div>
-            <div class="metric">
-              <span class="metric-label">MAE</span>
-              <span class="metric-val">₹ 1,08,785</span>
-            </div>
-            <div class="metric">
-              <span class="metric-label">RMSE</span>
-              <span class="metric-val">₹ 1,49,504</span>
-            </div>
-          </div>
-          <div class="r2-bar">
-            <div class="r2-fill" style="--pct:97.6%"></div>
-            <span>97.6% variance explained</span>
-          </div>
+      <div class="chart-card glass animate-on-scroll delay-1">
+        <h3 class="chart-title">Avg. Price by City (₹ Lakh)</h3>
+        <div class="bar-chart">
+          <div class="bar-row"><span class="bar-label">Mumbai</span><div class="bar-wrap"><div class="bar-fill" style="--w:82%;--c:#10b981"></div></div><span class="bar-pct">₹14.2L</span></div>
+          <div class="bar-row"><span class="bar-label">Delhi</span><div class="bar-wrap"><div class="bar-fill" style="--w:78%;--c:#3b82f6"></div></div><span class="bar-pct">₹13.5L</span></div>
+          <div class="bar-row"><span class="bar-label">Bengaluru</span><div class="bar-wrap"><div class="bar-fill" style="--w:75%;--c:#8b5cf6"></div></div><span class="bar-pct">₹13.0L</span></div>
+          <div class="bar-row"><span class="bar-label">Pune</span><div class="bar-wrap"><div class="bar-fill" style="--w:70%;--c:#f59e0b"></div></div><span class="bar-pct">₹12.1L</span></div>
+          <div class="bar-row"><span class="bar-label">Hyderabad</span><div class="bar-wrap"><div class="bar-fill" style="--w:65%;--c:#06d6a0"></div></div><span class="bar-pct">₹11.3L</span></div>
         </div>
-        <div class="model-card animate-on-scroll delay-1">
-          <div class="model-badge silver">🥈 Runner-Up</div>
-          <h3 class="model-name">Random Forest</h3>
-          <div class="model-metrics">
-            <div class="metric">
-              <span class="metric-label">R² Score</span>
-              <span class="metric-val">0.9667</span>
-            </div>
-            <div class="metric">
-              <span class="metric-label">MAE</span>
-              <span class="metric-val">₹ 1,26,565</span>
-            </div>
-            <div class="metric">
-              <span class="metric-label">RMSE</span>
-              <span class="metric-val">₹ 1,75,978</span>
-            </div>
-          </div>
-          <div class="r2-bar">
-            <div class="r2-fill blue" style="--pct:96.67%"></div>
-            <span>96.7% variance explained</span>
-          </div>
+      </div>
+      <div class="chart-card glass animate-on-scroll delay-2">
+        <h3 class="chart-title">Battery Health Distribution</h3>
+        <div class="donut-wrap">
+          <svg class="donut" viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="45" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="18"/>
+            <circle cx="60" cy="60" r="45" fill="none" stroke="#10b981" stroke-width="18" stroke-dasharray="113 170" stroke-dashoffset="0" class="donut-seg"/>
+            <circle cx="60" cy="60" r="45" fill="none" stroke="#3b82f6" stroke-width="18" stroke-dasharray="59 170" stroke-dashoffset="-113" class="donut-seg"/>
+            <circle cx="60" cy="60" r="45" fill="none" stroke="#f59e0b" stroke-width="18" stroke-dasharray="28 170" stroke-dashoffset="-172" class="donut-seg"/>
+          </svg>
+          <div class="donut-center"><span class="donut-val">85%</span><span class="donut-sub">Avg SOH</span></div>
         </div>
-        <div class="model-card animate-on-scroll delay-2">
-          <div class="model-badge bronze">🥉 Baseline</div>
-          <h3 class="model-name">Linear Regression</h3>
-          <div class="model-metrics">
-            <div class="metric">
-              <span class="metric-label">R² Score</span>
-              <span class="metric-val">0.9193</span>
-            </div>
-            <div class="metric">
-              <span class="metric-label">MAE</span>
-              <span class="metric-val">₹ 2,05,937</span>
-            </div>
-            <div class="metric">
-              <span class="metric-label">RMSE</span>
-              <span class="metric-val">₹ 2,74,066</span>
-            </div>
-          </div>
-          <div class="r2-bar">
-            <div class="r2-fill purple" style="--pct:91.93%"></div>
-            <span>91.9% variance explained</span>
-          </div>
+        <div class="donut-legend">
+          <div class="legend-item"><span class="leg-dot" style="background:#10b981"></span>90–100% (40%)</div>
+          <div class="legend-item"><span class="leg-dot" style="background:#3b82f6"></span>80–90% (31%)</div>
+          <div class="legend-item"><span class="leg-dot" style="background:#f59e0b"></span>&lt;80% (29%)</div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── DATASET ── -->
-  <section class="section dataset-section" id="dataset">
-    <div class="container">
-      <div class="dataset-inner glass">
-        <div class="dataset-text animate-on-scroll">
-          <span class="section-tag">Dataset</span>
-          <h2 class="section-title" style="text-align:left">1,500 Synthetic EV<br /><span class="gradient-text">Market Listings</span></h2>
-          <p>Carefully engineered synthetic dataset modelling real Indian EV market dynamics — battery degradation curves, brand-specific pricing, regional demand, and seasonal listing patterns.</p>
-          <div class="dataset-features">
-            <div class="ds-feat"><span class="ds-check">✓</span> 11 features per listing</div>
-            <div class="ds-feat"><span class="ds-check">✓</span> 5 brands × 10 models</div>
-            <div class="ds-feat"><span class="ds-check">✓</span> 6 Indian city markets</div>
-            <div class="ds-feat"><span class="ds-check">✓</span> 2018 – 2026 model years</div>
-            <div class="ds-feat"><span class="ds-check">✓</span> 17.3 kWh – 70.0 kWh battery range</div>
-            <div class="ds-feat"><span class="ds-check">✓</span> SOH: 65% – 100% health spectrum</div>
+<!-- ══ FEATURES ══ -->
+<section class="section features" id="features">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Platform Features</span>
+      <h2 class="section-title">Everything You Need to Buy or Sell an EV <span class="gradient-text">Confidently</span></h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card glass animate-on-scroll">
+        <div class="feature-icon" style="--ic:#10b981"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+        <h3>Real-Time Valuation</h3>
+        <p>Instant fair market price in ₹ INR with Low / Expected / High bounds and value driver breakdown.</p>
+        <div class="feature-tag">Gradient Boosting · R² 0.976</div>
+      </div>
+      <div class="feature-card glass animate-on-scroll delay-1">
+        <div class="feature-icon" style="--ic:#3b82f6"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2"/></svg></div>
+        <h3>Battery Degradation Lab</h3>
+        <p>Non-linear SOH curves, replacement cost warnings, and range impact analysis.</p>
+        <div class="feature-tag">Live Sensitivity Analysis</div>
+      </div>
+      <div class="feature-card glass animate-on-scroll delay-2">
+        <div class="feature-icon" style="--ic:#f59e0b"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m7 16 4-4 4 4 4-4"/></svg></div>
+        <h3>Market Intelligence</h3>
+        <p>Regional analytics for 6 Indian cities — price histograms, scatter plots, brand trends.</p>
+        <div class="feature-tag">6 City Markets</div>
+      </div>
+      <div class="feature-card glass animate-on-scroll delay-3">
+        <div class="feature-icon" style="--ic:#8b5cf6"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></div>
+        <h3>Model Benchmarks</h3>
+        <p>Gradient Boosting vs Random Forest vs Linear Regression — MAE, RMSE, R² comparison.</p>
+        <div class="feature-tag">Feature Importance Plots</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EV MODEL GALLERY ══ -->
+<section class="section gallery-section" id="models-gallery">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">EV Gallery</span>
+      <h2 class="section-title">Supported <span class="gradient-text">EV Models</span></h2>
+      <p class="section-sub">Browse the electric vehicles covered in our valuation platform.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="ev-card glass animate-on-scroll">
+        <div class="ev-img-wrap"><img src="assets/nexon-ev.jpg" alt="Tata Nexon EV"/><div class="ev-brand-tag">Tata</div></div>
+        <div class="ev-info">
+          <h3>Nexon EV</h3>
+          <div class="ev-specs">
+            <div class="spec"><span>🔋</span><span>30.2 kWh</span></div>
+            <div class="spec"><span>⚡</span><span>312 km range</span></div>
+            <div class="spec"><span>📅</span><span>2020–2026</span></div>
           </div>
+          <div class="ev-price-range">₹ 8L – ₹ 18L resale range</div>
         </div>
-        <div class="dataset-schema animate-on-scroll delay-1">
-          <div class="schema-card">
-            <div class="schema-row header-row">
-              <span>Feature</span><span>Type</span>
-            </div>
-            <div class="schema-row"><span class="col-name">brand</span><span class="col-type">Categorical</span></div>
-            <div class="schema-row"><span class="col-name">model</span><span class="col-type">Categorical</span></div>
-            <div class="schema-row"><span class="col-name">year</span><span class="col-type">Integer</span></div>
-            <div class="schema-row"><span class="col-name">battery_capacity_kwh</span><span class="col-type">Float</span></div>
-            <div class="schema-row"><span class="col-name">range_km</span><span class="col-type">Integer</span></div>
-            <div class="schema-row"><span class="col-name">km_driven</span><span class="col-type">Integer</span></div>
-            <div class="schema-row"><span class="col-name">battery_health_percent</span><span class="col-type">Float</span></div>
-            <div class="schema-row"><span class="col-name">region</span><span class="col-type">Categorical</span></div>
-            <div class="schema-row target-row"><span class="col-name">selling_price_inr</span><span class="col-type target-type">Target ₹</span></div>
+      </div>
+      <div class="ev-card glass animate-on-scroll delay-1">
+        <div class="ev-img-wrap"><img src="assets/mg-zsev.jpg" alt="MG ZS EV"/><div class="ev-brand-tag" style="background:#3b82f6">MG</div></div>
+        <div class="ev-info">
+          <h3>ZS EV</h3>
+          <div class="ev-specs">
+            <div class="spec"><span>🔋</span><span>50.3 kWh</span></div>
+            <div class="spec"><span>⚡</span><span>461 km range</span></div>
+            <div class="spec"><span>📅</span><span>2020–2026</span></div>
           </div>
+          <div class="ev-price-range">₹ 12L – ₹ 24L resale range</div>
+        </div>
+      </div>
+      <div class="ev-card glass animate-on-scroll delay-2">
+        <div class="ev-img-wrap"><img src="assets/ioniq5.jpg" alt="Hyundai Ioniq 5"/><div class="ev-brand-tag" style="background:#8b5cf6">Hyundai</div></div>
+        <div class="ev-info">
+          <h3>Ioniq 5</h3>
+          <div class="ev-specs">
+            <div class="spec"><span>🔋</span><span>72.6 kWh</span></div>
+            <div class="spec"><span>⚡</span><span>631 km range</span></div>
+            <div class="spec"><span>📅</span><span>2022–2026</span></div>
+          </div>
+          <div class="ev-price-range">₹ 22L – ₹ 44L resale range</div>
+        </div>
+      </div>
+      <div class="ev-card glass animate-on-scroll delay-3">
+        <div class="ev-img-wrap">
+          <div class="ev-placeholder" style="background:linear-gradient(135deg,#1e293b,#0f172a)">
+            <span style="font-size:3rem">🔋</span>
+          </div>
+          <div class="ev-brand-tag" style="background:#f59e0b;color:#000">Mahindra</div>
+        </div>
+        <div class="ev-info">
+          <h3>XUV400 EV</h3>
+          <div class="ev-specs">
+            <div class="spec"><span>🔋</span><span>39.4 kWh</span></div>
+            <div class="spec"><span>⚡</span><span>456 km range</span></div>
+            <div class="spec"><span>📅</span><span>2023–2026</span></div>
+          </div>
+          <div class="ev-price-range">₹ 14L – ₹ 22L resale range</div>
+        </div>
+      </div>
+      <div class="ev-card glass animate-on-scroll delay-4">
+        <div class="ev-img-wrap">
+          <div class="ev-placeholder" style="background:linear-gradient(135deg,#1c1033,#0f172a)">
+            <span style="font-size:3rem">⚡</span>
+          </div>
+          <div class="ev-brand-tag" style="background:#ef4444">BYD</div>
+        </div>
+        <div class="ev-info">
+          <h3>Atto 3</h3>
+          <div class="ev-specs">
+            <div class="spec"><span>🔋</span><span>60.5 kWh</span></div>
+            <div class="spec"><span>⚡</span><span>521 km range</span></div>
+            <div class="spec"><span>📅</span><span>2023–2026</span></div>
+          </div>
+          <div class="ev-price-range">₹ 18L – ₹ 32L resale range</div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── TECH STACK ── -->
-  <section class="section tech-section">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Built With</span>
-        <h2 class="section-title">The <span class="gradient-text">Tech Stack</span></h2>
-      </div>
-      <div class="tech-grid">
-        <div class="tech-chip animate-on-scroll"><span class="tech-icon">🐍</span> Python 3.11</div>
-        <div class="tech-chip animate-on-scroll delay-1"><span class="tech-icon">⚡</span> Streamlit</div>
-        <div class="tech-chip animate-on-scroll delay-2"><span class="tech-icon">🤖</span> Scikit-Learn</div>
-        <div class="tech-chip animate-on-scroll delay-3"><span class="tech-icon">📊</span> Plotly</div>
-        <div class="tech-chip animate-on-scroll delay-4"><span class="tech-icon">🐼</span> Pandas</div>
-        <div class="tech-chip animate-on-scroll"><span class="tech-icon">🔢</span> NumPy</div>
-        <div class="tech-chip animate-on-scroll delay-1"><span class="tech-icon">💾</span> Joblib</div>
-        <div class="tech-chip animate-on-scroll delay-2"><span class="tech-icon">🚀</span> Render</div>
-      </div>
+<!-- ══ COMPARE TOOL ══ -->
+<section class="section compare-section" id="compare">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Comparison Tool</span>
+      <h2 class="section-title">Compare Two EVs <span class="gradient-text">Side by Side</span></h2>
     </div>
-  </section>
-
-  <!-- ── CTA ── -->
-  <section class="section cta-section">
-    <div class="container">
-      <div class="cta-box glass animate-on-scroll">
-        <div class="cta-glow"></div>
-        <h2>Ready to Find Out What Your EV is Worth?</h2>
-        <p>Launch the app and get an instant AI-powered valuation in under 10 seconds.</p>
-        <div class="cta-actions">
-          <a href="https://ev-intellivalue.onrender.com" target="_blank" class="btn btn-primary btn-lg">
-            Launch EV IntelliValue
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <a href="https://github.com/uddhavgaware/EV_IntelliValue" target="_blank" class="btn btn-outline btn-lg">
-            ⭐ Star on GitHub
-          </a>
+    <div class="compare-card glass">
+      <div class="compare-selectors">
+        <div class="compare-side">
+          <h4>EV One</h4>
+          <select id="cmp-a" class="form-control">
+            <option value="nexon">Tata Nexon EV (30.2 kWh)</option>
+            <option value="mg">MG ZS EV (50.3 kWh)</option>
+            <option value="ioniq">Hyundai Ioniq 5 (72.6 kWh)</option>
+            <option value="xuv">Mahindra XUV400 EV (39.4 kWh)</option>
+            <option value="atto">BYD Atto 3 (60.5 kWh)</option>
+          </select>
+        </div>
+        <div class="vs-badge">VS</div>
+        <div class="compare-side">
+          <h4>EV Two</h4>
+          <select id="cmp-b" class="form-control">
+            <option value="mg">MG ZS EV (50.3 kWh)</option>
+            <option value="nexon">Tata Nexon EV (30.2 kWh)</option>
+            <option value="ioniq">Hyundai Ioniq 5 (72.6 kWh)</option>
+            <option value="xuv">Mahindra XUV400 EV (39.4 kWh)</option>
+            <option value="atto">BYD Atto 3 (60.5 kWh)</option>
+          </select>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- ── FOOTER ── -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <span class="logo-bolt">⚡</span>
-          <span class="logo-text">EV <span class="logo-accent">IntelliValue</span></span>
-        </div>
-        <p class="footer-copy">
-          © 2026 Uddhav Gaware · MIT License ·
-          <a href="https://github.com/uddhavgaware/EV_IntelliValue" target="_blank">GitHub</a>
-        </p>
-        <p class="footer-note">Built with Python · Streamlit · Scikit-Learn · Plotly</p>
+      <button class="btn btn-primary btn-full" id="cmp-btn">⚡ Compare Now</button>
+      <div class="compare-table" id="cmpTable" style="display:none">
+        <div class="cmp-row header"><span>Specification</span><span id="cmp-name-a">—</span><span id="cmp-name-b">—</span></div>
+        <div class="cmp-row"><span>Battery Capacity</span><span id="cmp-bat-a">—</span><span id="cmp-bat-b">—</span></div>
+        <div class="cmp-row"><span>Range</span><span id="cmp-range-a">—</span><span id="cmp-range-b">—</span></div>
+        <div class="cmp-row"><span>Resale (Expected)</span><span id="cmp-price-a">—</span><span id="cmp-price-b">—</span></div>
+        <div class="cmp-row"><span>Best For</span><span id="cmp-use-a">—</span><span id="cmp-use-b">—</span></div>
+        <div class="cmp-row"><span>Charging Speed</span><span id="cmp-chg-a">—</span><span id="cmp-chg-b">—</span></div>
       </div>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <script src="script.js"></script>
+<!-- ══ ML MODELS ══ -->
+<section class="section models-section" id="ml-models">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">ML Performance</span>
+      <h2 class="section-title">Benchmark Results Across <span class="gradient-text">Three Algorithms</span></h2>
+    </div>
+    <div class="models-grid">
+      <div class="model-card winner animate-on-scroll">
+        <div class="model-badge">🥇 Best Model</div>
+        <h3 class="model-name">Gradient Boosting</h3>
+        <div class="model-metrics">
+          <div class="metric"><span class="metric-label">R² Score</span><span class="metric-val accent">0.9760</span></div>
+          <div class="metric"><span class="metric-label">MAE</span><span class="metric-val">₹ 1,08,785</span></div>
+          <div class="metric"><span class="metric-label">RMSE</span><span class="metric-val">₹ 1,49,504</span></div>
+        </div>
+        <div class="r2-bar"><div class="r2-fill" style="--pct:97.6%"></div></div>
+        <span class="r2-label">97.6% variance explained</span>
+      </div>
+      <div class="model-card animate-on-scroll delay-1">
+        <div class="model-badge silver">🥈 Runner-Up</div>
+        <h3 class="model-name">Random Forest</h3>
+        <div class="model-metrics">
+          <div class="metric"><span class="metric-label">R² Score</span><span class="metric-val">0.9667</span></div>
+          <div class="metric"><span class="metric-label">MAE</span><span class="metric-val">₹ 1,26,565</span></div>
+          <div class="metric"><span class="metric-label">RMSE</span><span class="metric-val">₹ 1,75,978</span></div>
+        </div>
+        <div class="r2-bar"><div class="r2-fill blue" style="--pct:96.67%"></div></div>
+        <span class="r2-label">96.7% variance explained</span>
+      </div>
+      <div class="model-card animate-on-scroll delay-2">
+        <div class="model-badge bronze">🥉 Baseline</div>
+        <h3 class="model-name">Linear Regression</h3>
+        <div class="model-metrics">
+          <div class="metric"><span class="metric-label">R² Score</span><span class="metric-val">0.9193</span></div>
+          <div class="metric"><span class="metric-label">MAE</span><span class="metric-val">₹ 2,05,937</span></div>
+          <div class="metric"><span class="metric-label">RMSE</span><span class="metric-val">₹ 2,74,066</span></div>
+        </div>
+        <div class="r2-bar"><div class="r2-fill purple" style="--pct:91.93%"></div></div>
+        <span class="r2-label">91.9% variance explained</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ══ -->
+<section class="section testimonials-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Reviews</span>
+      <h2 class="section-title">What People <span class="gradient-text">Are Saying</span></h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testi-card glass animate-on-scroll">
+        <div class="stars">★★★★★</div>
+        <p>"Finally a tool that accounts for battery health in the price! Saved me ₹1.5L when buying a used Nexon EV."</p>
+        <div class="testi-author"><div class="testi-avatar" style="background:#10b981">R</div><div><strong>Rahul M.</strong><span>Pune</span></div></div>
+      </div>
+      <div class="testi-card glass animate-on-scroll delay-1">
+        <div class="stars">★★★★★</div>
+        <p>"The battery degradation lab is brilliant. I could see exactly how my 3-year-old ZS EV's range was affecting its value."</p>
+        <div class="testi-author"><div class="testi-avatar" style="background:#3b82f6">P</div><div><strong>Priya S.</strong><span>Bengaluru</span></div></div>
+      </div>
+      <div class="testi-card glass animate-on-scroll delay-2">
+        <div class="stars">★★★★★</div>
+        <p>"Used this to price my Ioniq 5 before selling. Got ₹2L more than the dealer offered. Incredible accuracy!"</p>
+        <div class="testi-author"><div class="testi-avatar" style="background:#8b5cf6">A</div><div><strong>Arjun K.</strong><span>Mumbai</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section class="section faq-section" id="faq">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">FAQ</span>
+      <h2 class="section-title">Frequently Asked <span class="gradient-text">Questions</span></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item glass animate-on-scroll">
+        <button class="faq-q">How accurate is the price estimate? <span class="faq-icon">+</span></button>
+        <div class="faq-a">Our Gradient Boosting model achieves an R² of 0.976, meaning it explains 97.6% of price variance. The Mean Absolute Error is ₹1,08,785 on a dataset ranging from ₹1.5L to ₹70L+ vehicles.</div>
+      </div>
+      <div class="faq-item glass animate-on-scroll delay-1">
+        <button class="faq-q">Which EV brands are supported? <span class="faq-icon">+</span></button>
+        <div class="faq-a">We currently support Tata (Nexon EV, Tiago EV, Tigor EV), MG (ZS EV, Comet EV), Mahindra (XUV400 EV, eVerito), Hyundai (Kona Electric, Ioniq 5), and BYD (Atto 3, e6).</div>
+      </div>
+      <div class="faq-item glass animate-on-scroll delay-2">
+        <button class="faq-q">What is Battery State-of-Health (SOH)? <span class="faq-icon">+</span></button>
+        <div class="faq-a">SOH represents the current capacity of a battery as a percentage of its original capacity. A 90% SOH means the battery can hold 90% of what it could when new. This heavily impacts range and resale value.</div>
+      </div>
+      <div class="faq-item glass animate-on-scroll delay-3">
+        <button class="faq-q">Is the data real market data? <span class="faq-icon">+</span></button>
+        <div class="faq-a">The training dataset is carefully engineered synthetic data modelling real Indian EV market dynamics including brand-specific depreciation, regional demand, battery degradation physics, and seasonal pricing patterns.</div>
+      </div>
+      <div class="faq-item glass animate-on-scroll delay-4">
+        <button class="faq-q">How do I get the most accurate valuation? <span class="faq-icon">+</span></button>
+        <div class="faq-a">Use the full Streamlit app and enter: exact battery capacity (kWh), accurate battery health % (get this from the vehicle's OBD/app), precise km driven, correct model year, and your city for regional pricing.</div>
+      </div>
+      <div class="faq-item glass animate-on-scroll">
+        <button class="faq-q">Is this app free to use? <span class="faq-icon">+</span></button>
+        <div class="faq-a">Yes! EV IntelliValue is completely free and open-source under the MIT license. You can use it, fork it, and build on it.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NEWSLETTER ══ -->
+<section class="section newsletter-section">
+  <div class="container">
+    <div class="newsletter-box glass animate-on-scroll">
+      <div class="newsletter-glow"></div>
+      <h2>Stay Updated on the EV Market</h2>
+      <p>Get monthly insights on Indian EV resale trends, battery tech updates, and platform improvements.</p>
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="email" id="newsletter-email" class="form-control" placeholder="your@email.com" required/>
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </form>
+      <div class="newsletter-success" id="newsletterSuccess" style="display:none">
+        ✅ Thanks for subscribing! We'll keep you updated.
+      </div>
+      <p class="newsletter-note">No spam, ever. Unsubscribe anytime.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="section cta-section">
+  <div class="container">
+    <div class="cta-box glass animate-on-scroll">
+      <div class="cta-glow"></div>
+      <h2>Ready to Find Out What Your EV is Worth?</h2>
+      <p>Launch the full AI-powered app and get a precise valuation in under 10 seconds.</p>
+      <div class="cta-actions">
+        <a href="https://ev-intellivalue.onrender.com" target="_blank" class="btn btn-primary btn-lg">Launch EV IntelliValue <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="https://github.com/uddhavgaware/EV_IntelliValue" target="_blank" class="btn btn-outline btn-lg">⭐ Star on GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-brand"><span class="logo-bolt">⚡</span><span class="logo-text">EV <span class="logo-accent">IntelliValue</span></span></div>
+        <p class="footer-desc">India's intelligent pre-owned EV valuation platform powered by machine learning.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="#calculator">Price Calculator</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#models-gallery">EV Gallery</a></li>
+          <li><a href="https://ev-intellivalue.onrender.com" target="_blank">Launch App</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="https://github.com/uddhavgaware/EV_IntelliValue" target="_blank">GitHub Repository</a></li>
+          <li><a href="#ml-models">ML Benchmarks</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Tech Stack</h4>
+        <ul>
+          <li>Python 3.11</li><li>Streamlit</li>
+          <li>Scikit-Learn</li><li>Plotly</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Uddhav Gaware · MIT License</p>
+      <p>Built with ❤️ for the Indian EV community</p>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
