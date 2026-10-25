@@ -5,7 +5,7 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.30+-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-Machine%20Learning-F7931E?logo=scikitlearn&logoColor=white)](https://scikit-learn.org/)
 [![Plotly](https://img.shields.io/badge/Plotly-Interactive%20Charts-3F4F75?logo=plotly&logoColor=white)](https://plotly.com/)
-[![Model R2](https://img.shields.io/badge/Model%20R%C2%B2-0.9760%20(97.6%25)-10b981?style=flat)](https://github.com/uddhavgaware/EV_IntelliValue)
+[![Model R2](https://img.shields.io/badge/Model%20R%C2%B2-0.9774%20(97.7%25)-10b981?style=flat)](https://github.com/uddhavgaware/EV_IntelliValue)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
@@ -63,11 +63,12 @@ Raw Input Data (ev_dataset.csv)
 
 | Model | MAE (₹ INR) | RMSE (₹ INR) | R² Score | Performance |
 | :--- | :---: | :---: | :---: | :---: |
-| **Gradient Boosting Regressor** 🥇 | **₹ 1,08,785** | **₹ 1,49,504** | **0.9760** | **Best Precision & Generalization** |
-| Random Forest Regressor 🥈 | ₹ 1,26,565 | ₹ 1,75,978 | 0.9667 | Strong Ensemble Baseline |
-| Linear Regression 🥉 | ₹ 2,05,937 | ₹ 2,74,066 | 0.9193 | Baseline Linear Reference |
+| **Gradient Boosting Regressor** 🥇 | **₹ 1,05,356** | **₹ 1,45,036** | **0.9774** | **Best Precision & Generalization** |
+| Extra Trees Regressor 🥈 | ₹ 1,23,101 | ₹ 1,70,553 | 0.9687 | Extremely Fast Multi-Tree Ensemble |
+| Random Forest Regressor 🥉 | ₹ 1,26,565 | ₹ 1,75,978 | 0.9667 | Strong Ensemble Baseline |
+| Linear Regression | ₹ 2,05,937 | ₹ 2,74,066 | 0.9193 | Baseline Linear Reference |
 
-> **Key Takeaway:** The Gradient Boosting model explains **97.6% of the variance** in EV resale pricing, capturing nuanced non-linear battery health penalties that linear models fail to reflect.
+> **Key Takeaway:** The Gradient Boosting model explains **97.7% of the variance** in EV resale pricing, capturing nuanced non-linear battery health penalties that linear models fail to reflect.
 
 ---
 

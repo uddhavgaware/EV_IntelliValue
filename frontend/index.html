@@ -59,7 +59,7 @@
   </div>
   <div class="particles" id="particles"></div>
   <div class="hero-content">
-    <div class="hero-badge animate-fade-up"><span class="badge-dot"></span>AI-Powered · India's EV Market · 97.6% Accuracy</div>
+    <div class="hero-badge animate-fade-up"><span class="badge-dot"></span>AI-Powered · India's EV Market · 97.7% Accuracy</div>
     <h1 class="hero-title animate-fade-up delay-1">Know the True Value of<br/><span class="gradient-text">Every Pre-Owned EV</span></h1>
     <p class="hero-sub animate-fade-up delay-2">Instant ML-powered resale price estimates, battery state-of-health modelling,<br class="hide-sm"/>and real-time market intelligence for Indian electric vehicles.</p>
     <div class="hero-actions animate-fade-up delay-3">
@@ -69,7 +69,7 @@
       <a href="#calculator" class="btn btn-outline btn-lg">Try Calculator</a>
     </div>
     <div class="hero-stats animate-fade-up delay-4">
-      <div class="stat"><span class="stat-val" data-target="97.6">0</span><span class="stat-unit">%</span><span class="stat-label">Model Accuracy</span></div>
+      <div class="stat"><span class="stat-val" data-target="97.7">0</span><span class="stat-unit">%</span><span class="stat-label">Model Accuracy</span></div>
       <div class="stat-div"></div>
       <div class="stat"><span class="stat-val" data-target="1500">0</span><span class="stat-unit">+</span><span class="stat-label">EV Listings</span></div>
       <div class="stat-div"></div>
@@ -228,7 +228,7 @@
         <div class="result-output" id="resultOutput" style="display:none">
           <div class="result-badge-row">
             <div class="result-label" style="margin-bottom:0;">Estimated Fair Resale Value</div>
-            <div class="result-source-badge" id="resultSourceBadge">⚡ ML Model Verified (97.6% R²)</div>
+            <div class="result-source-badge" id="resultSourceBadge">⚡ ML Model Verified (97.7% R²)</div>
           </div>
           <div class="result-range">
             <div class="range-item low"><span>Conservative</span><strong id="res-low">—</strong></div>
@@ -318,7 +318,7 @@
         <div class="feature-icon" style="--ic:#10b981"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
         <h3>Real-Time Valuation</h3>
         <p>Instant fair market price in ₹ INR with Low / Expected / High bounds and value driver breakdown.</p>
-        <div class="feature-tag">Gradient Boosting · R² 0.976</div>
+        <div class="feature-tag">Gradient Boosting · R² 0.9774</div>
       </div>
       <div class="feature-card glass animate-on-scroll delay-1">
         <div class="feature-icon" style="--ic:#3b82f6"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2"/></svg></div>
@@ -348,23 +348,34 @@
     <div class="section-header">
       <span class="section-tag">EV Gallery</span>
       <h2 class="section-title">Supported <span class="gradient-text">EV Models</span></h2>
-      <p class="section-sub">Browse the electric vehicles covered in our valuation platform.</p>
+      <p class="section-sub">Browse top-selling electric vehicles. Click any model to auto-fill the ML valuation calculator.</p>
     </div>
     <div class="gallery-grid">
-      <div class="ev-card glass animate-on-scroll">
-        <div class="ev-img-wrap"><img src="assets/nexon-ev.jpg" alt="Tata Nexon EV"/><div class="ev-brand-tag">Tata</div></div>
+      <!-- Tata Nexon EV -->
+      <div class="ev-card glass animate-on-scroll" data-calc-brand="tata" data-calc-model="Nexon EV" data-calc-battery="40.5" title="Click to calculate valuation">
+        <div class="ev-img-wrap">
+          <img src="assets/nexon-ev.jpg" alt="Tata Nexon EV"/>
+          <div class="ev-brand-tag">Tata</div>
+          <span class="gallery-click-hint">⚡ Click to Value</span>
+        </div>
         <div class="ev-info">
           <h3>Nexon EV</h3>
           <div class="ev-specs">
-            <div class="spec"><span>🔋</span><span>30.2 kWh</span></div>
-            <div class="spec"><span>⚡</span><span>312 km range</span></div>
+            <div class="spec"><span>🔋</span><span>40.5 kWh</span></div>
+            <div class="spec"><span>⚡</span><span>453 km range</span></div>
             <div class="spec"><span>📅</span><span>2020–2026</span></div>
           </div>
-          <div class="ev-price-range">₹ 8L – ₹ 18L resale range</div>
+          <div class="ev-price-range">₹ 8.5L – ₹ 16.5L resale range</div>
         </div>
       </div>
-      <div class="ev-card glass animate-on-scroll delay-1">
-        <div class="ev-img-wrap"><img src="assets/mg-zsev.jpg" alt="MG ZS EV"/><div class="ev-brand-tag" style="background:#3b82f6">MG</div></div>
+
+      <!-- MG ZS EV -->
+      <div class="ev-card glass animate-on-scroll delay-1" data-calc-brand="mg" data-calc-model="ZS EV" data-calc-battery="50.3" title="Click to calculate valuation">
+        <div class="ev-img-wrap">
+          <img src="assets/mg-zsev.jpg" alt="MG ZS EV"/>
+          <div class="ev-brand-tag" style="background:#3b82f6">MG</div>
+          <span class="gallery-click-hint">⚡ Click to Value</span>
+        </div>
         <div class="ev-info">
           <h3>ZS EV</h3>
           <div class="ev-specs">
@@ -372,11 +383,17 @@
             <div class="spec"><span>⚡</span><span>461 km range</span></div>
             <div class="spec"><span>📅</span><span>2020–2026</span></div>
           </div>
-          <div class="ev-price-range">₹ 12L – ₹ 24L resale range</div>
+          <div class="ev-price-range">₹ 12.5L – ₹ 22.0L resale range</div>
         </div>
       </div>
-      <div class="ev-card glass animate-on-scroll delay-2">
-        <div class="ev-img-wrap"><img src="assets/ioniq5.jpg" alt="Hyundai Ioniq 5"/><div class="ev-brand-tag" style="background:#8b5cf6">Hyundai</div></div>
+
+      <!-- Hyundai Ioniq 5 -->
+      <div class="ev-card glass animate-on-scroll delay-2" data-calc-brand="hyundai" data-calc-model="Ioniq 5" data-calc-battery="72.6" title="Click to calculate valuation">
+        <div class="ev-img-wrap">
+          <img src="assets/ioniq5.jpg" alt="Hyundai Ioniq 5"/>
+          <div class="ev-brand-tag" style="background:#8b5cf6">Hyundai</div>
+          <span class="gallery-click-hint">⚡ Click to Value</span>
+        </div>
         <div class="ev-info">
           <h3>Ioniq 5</h3>
           <div class="ev-specs">
@@ -384,15 +401,16 @@
             <div class="spec"><span>⚡</span><span>631 km range</span></div>
             <div class="spec"><span>📅</span><span>2022–2026</span></div>
           </div>
-          <div class="ev-price-range">₹ 22L – ₹ 44L resale range</div>
+          <div class="ev-price-range">₹ 28.0L – ₹ 44.0L resale range</div>
         </div>
       </div>
-      <div class="ev-card glass animate-on-scroll delay-3">
+
+      <!-- Mahindra XUV400 EV -->
+      <div class="ev-card glass animate-on-scroll delay-3" data-calc-brand="mahindra" data-calc-model="XUV400 EV" data-calc-battery="39.4" title="Click to calculate valuation">
         <div class="ev-img-wrap">
-          <div class="ev-placeholder" style="background:linear-gradient(135deg,#1e293b,#0f172a)">
-            <span style="font-size:3rem">🔋</span>
-          </div>
+          <img src="assets/xuv400.jpg" alt="Mahindra XUV400 EV"/>
           <div class="ev-brand-tag" style="background:#f59e0b;color:#000">Mahindra</div>
+          <span class="gallery-click-hint">⚡ Click to Value</span>
         </div>
         <div class="ev-info">
           <h3>XUV400 EV</h3>
@@ -401,15 +419,16 @@
             <div class="spec"><span>⚡</span><span>456 km range</span></div>
             <div class="spec"><span>📅</span><span>2023–2026</span></div>
           </div>
-          <div class="ev-price-range">₹ 14L – ₹ 22L resale range</div>
+          <div class="ev-price-range">₹ 10.5L – ₹ 17.0L resale range</div>
         </div>
       </div>
-      <div class="ev-card glass animate-on-scroll delay-4">
+
+      <!-- BYD Atto 3 -->
+      <div class="ev-card glass animate-on-scroll delay-4" data-calc-brand="byd" data-calc-model="Atto 3" data-calc-battery="60.5" title="Click to calculate valuation">
         <div class="ev-img-wrap">
-          <div class="ev-placeholder" style="background:linear-gradient(135deg,#1c1033,#0f172a)">
-            <span style="font-size:3rem">⚡</span>
-          </div>
+          <img src="assets/atto3.jpg" alt="BYD Atto 3"/>
           <div class="ev-brand-tag" style="background:#ef4444">BYD</div>
+          <span class="gallery-click-hint">⚡ Click to Value</span>
         </div>
         <div class="ev-info">
           <h3>Atto 3</h3>
@@ -418,7 +437,25 @@
             <div class="spec"><span>⚡</span><span>521 km range</span></div>
             <div class="spec"><span>📅</span><span>2023–2026</span></div>
           </div>
-          <div class="ev-price-range">₹ 18L – ₹ 32L resale range</div>
+          <div class="ev-price-range">₹ 16.5L – ₹ 25.5L resale range</div>
+        </div>
+      </div>
+
+      <!-- Tata Curvv EV -->
+      <div class="ev-card glass animate-on-scroll delay-5" data-calc-brand="tata" data-calc-model="Curvv EV" data-calc-battery="55.0" title="Click to calculate valuation">
+        <div class="ev-img-wrap">
+          <img src="assets/curvv-ev.jpg" alt="Tata Curvv EV"/>
+          <div class="ev-brand-tag" style="background:#06b6d4">Tata Curvv</div>
+          <span class="gallery-click-hint">⚡ Click to Value</span>
+        </div>
+        <div class="ev-info">
+          <h3>Curvv EV</h3>
+          <div class="ev-specs">
+            <div class="spec"><span>🔋</span><span>55.0 kWh</span></div>
+            <div class="spec"><span>⚡</span><span>585 km range</span></div>
+            <div class="spec"><span>📅</span><span>2024–2026</span></div>
+          </div>
+          <div class="ev-price-range">₹ 14.0L – ₹ 20.5L resale range</div>
         </div>
       </div>
     </div>
@@ -429,41 +466,154 @@
 <section class="section compare-section" id="compare">
   <div class="container">
     <div class="section-header">
-      <span class="section-tag">Comparison Tool</span>
-      <h2 class="section-title">Compare Two EVs <span class="gradient-text">Side by Side</span></h2>
+      <span class="section-tag">Direct Head-to-Head</span>
+      <h2 class="section-title">Compare Any Two EVs <span class="gradient-text">Side by Side</span></h2>
+      <p class="section-sub">Detailed specs, battery capacity, fast charging, real range, and AI-predicted resale retention.</p>
     </div>
     <div class="compare-card glass">
+      <!-- Selector Row -->
       <div class="compare-selectors">
         <div class="compare-side">
-          <h4>EV One</h4>
+          <label for="cmp-a" class="compare-label">Primary EV</label>
           <select id="cmp-a" class="form-control">
-            <option value="nexon">Tata Nexon EV (30.2 kWh)</option>
+            <option value="nexon" selected>Tata Nexon EV (40.5 kWh)</option>
+            <option value="curvv">Tata Curvv EV (55.0 kWh)</option>
+            <option value="punch">Tata Punch EV (35.0 kWh)</option>
             <option value="mg">MG ZS EV (50.3 kWh)</option>
-            <option value="ioniq">Hyundai Ioniq 5 (72.6 kWh)</option>
+            <option value="windsor">MG Windsor EV (38.0 kWh)</option>
             <option value="xuv">Mahindra XUV400 EV (39.4 kWh)</option>
+            <option value="be6e">Mahindra BE 6e (59.0 kWh)</option>
+            <option value="ioniq">Hyundai Ioniq 5 (72.6 kWh)</option>
+            <option value="creta">Hyundai Creta EV (45.0 kWh)</option>
             <option value="atto">BYD Atto 3 (60.5 kWh)</option>
+            <option value="seal">BYD Seal (82.5 kWh)</option>
+            <option value="ev6">Kia EV6 GT (77.4 kWh)</option>
           </select>
         </div>
         <div class="vs-badge">VS</div>
         <div class="compare-side">
-          <h4>EV Two</h4>
+          <label for="cmp-b" class="compare-label">Comparison Target</label>
           <select id="cmp-b" class="form-control">
-            <option value="mg">MG ZS EV (50.3 kWh)</option>
-            <option value="nexon">Tata Nexon EV (30.2 kWh)</option>
-            <option value="ioniq">Hyundai Ioniq 5 (72.6 kWh)</option>
+            <option value="mg" selected>MG ZS EV (50.3 kWh)</option>
+            <option value="nexon">Tata Nexon EV (40.5 kWh)</option>
+            <option value="curvv">Tata Curvv EV (55.0 kWh)</option>
+            <option value="punch">Tata Punch EV (35.0 kWh)</option>
+            <option value="windsor">MG Windsor EV (38.0 kWh)</option>
             <option value="xuv">Mahindra XUV400 EV (39.4 kWh)</option>
+            <option value="be6e">Mahindra BE 6e (59.0 kWh)</option>
+            <option value="ioniq">Hyundai Ioniq 5 (72.6 kWh)</option>
+            <option value="creta">Hyundai Creta EV (45.0 kWh)</option>
             <option value="atto">BYD Atto 3 (60.5 kWh)</option>
+            <option value="seal">BYD Seal (82.5 kWh)</option>
+            <option value="ev6">Kia EV6 GT (77.4 kWh)</option>
           </select>
         </div>
       </div>
-      <button class="btn btn-primary btn-full" id="cmp-btn">⚡ Compare Now</button>
-      <div class="compare-table" id="cmpTable" style="display:none">
-        <div class="cmp-row header"><span>Specification</span><span id="cmp-name-a">—</span><span id="cmp-name-b">—</span></div>
-        <div class="cmp-row"><span>Battery Capacity</span><span id="cmp-bat-a">—</span><span id="cmp-bat-b">—</span></div>
-        <div class="cmp-row"><span>Range</span><span id="cmp-range-a">—</span><span id="cmp-range-b">—</span></div>
-        <div class="cmp-row"><span>Resale (Expected)</span><span id="cmp-price-a">—</span><span id="cmp-price-b">—</span></div>
-        <div class="cmp-row"><span>Best For</span><span id="cmp-use-a">—</span><span id="cmp-use-b">—</span></div>
-        <div class="cmp-row"><span>Charging Speed</span><span id="cmp-chg-a">—</span><span id="cmp-chg-b">—</span></div>
+
+      <!-- Visual Side-by-Side Cards -->
+      <div class="compare-visual-grid" id="cmpVisualGrid">
+        <div class="cmp-vehicle-card" id="cmpCardA">
+          <div class="cmp-img-box">
+            <img id="cmp-img-a" src="assets/nexon-ev.jpg" alt="EV One"/>
+            <span class="cmp-brand-pill" id="cmp-tag-a">Tata</span>
+          </div>
+          <div class="cmp-card-body">
+            <h3 id="cmp-head-a">Tata Nexon EV</h3>
+            <div class="cmp-card-segment" id="cmp-seg-a">Compact SUV</div>
+            <div class="cmp-card-price" id="cmp-quickprice-a">₹ 14.5 Lakh (New Benchmark)</div>
+          </div>
+        </div>
+
+        <div class="cmp-divider-center">
+          <div class="cmp-vs-circle">VS</div>
+        </div>
+
+        <div class="cmp-vehicle-card" id="cmpCardB">
+          <div class="cmp-img-box">
+            <img id="cmp-img-b" src="assets/mg-zsev.jpg" alt="EV Two"/>
+            <span class="cmp-brand-pill" id="cmp-tag-b" style="background:#3b82f6">MG</span>
+          </div>
+          <div class="cmp-card-body">
+            <h3 id="cmp-head-b">MG ZS EV</h3>
+            <div class="cmp-card-segment" id="cmp-seg-b">Midsize SUV</div>
+            <div class="cmp-card-price" id="cmp-quickprice-b">₹ 21.5 Lakh (New Benchmark)</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-full" id="cmp-btn">⚡ Run Head-to-Head Comparison</button>
+
+      <!-- Head to Head Verdict Box -->
+      <div class="cmp-verdict-box" id="cmpVerdictBox">
+        <div class="verdict-icon">⚖️</div>
+        <div class="verdict-content">
+          <h4>Smart Head-to-Head Analysis</h4>
+          <p id="cmpVerdictText">Tata Nexon EV offers a lower initial price and higher city agility with 40.5 kWh battery, while MG ZS EV provides +24% more battery capacity, larger boot space, and better high-speed stability for interstate trips.</p>
+        </div>
+      </div>
+
+      <!-- Specification Matrix Table -->
+      <div class="compare-table" id="cmpTable">
+        <div class="cmp-row header">
+          <span class="cmp-col-label">Metric / Specification</span>
+          <span class="cmp-col-a" id="cmp-name-a">Tata Nexon EV</span>
+          <span class="cmp-col-b" id="cmp-name-b">MG ZS EV</span>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-col-label">Segment & Classification</span>
+          <span id="cmp-segm-a" class="cmp-col-a">—</span>
+          <span id="cmp-segm-b" class="cmp-col-b">—</span>
+        </div>
+        <div class="cmp-row highlight-row">
+          <span class="cmp-col-label">Battery Pack (Usable)</span>
+          <span id="cmp-bat-a" class="cmp-col-a">—</span>
+          <span id="cmp-bat-b" class="cmp-col-b">—</span>
+        </div>
+        <div class="cmp-row highlight-row">
+          <span class="cmp-col-label">ARAI / MIDC Range</span>
+          <span id="cmp-range-a" class="cmp-col-a">—</span>
+          <span id="cmp-range-b" class="cmp-col-b">—</span>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-col-label">Real Highway Range (Est.)</span>
+          <span id="cmp-hwyrange-a" class="cmp-col-a">—</span>
+          <span id="cmp-hwyrange-b" class="cmp-col-b">—</span>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-col-label">DC Fast Charge (10%–80%)</span>
+          <span id="cmp-chg-a" class="cmp-col-a">—</span>
+          <span id="cmp-chg-b" class="cmp-col-b">—</span>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-col-label">Acceleration (0–100 km/h)</span>
+          <span id="cmp-accel-a" class="cmp-col-a">—</span>
+          <span id="cmp-accel-b" class="cmp-col-b">—</span>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-col-label">New Benchmark Price</span>
+          <span id="cmp-price-a" class="cmp-col-a">—</span>
+          <span id="cmp-price-b" class="cmp-col-b">—</span>
+        </div>
+        <div class="cmp-row highlight-row">
+          <span class="cmp-col-label">Est. 3-Year Resale Value</span>
+          <span id="cmp-resale-a" class="cmp-col-a" style="color:var(--accent);font-weight:700;">—</span>
+          <span id="cmp-resale-b" class="cmp-col-b" style="color:var(--accent);font-weight:700;">—</span>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-col-label">5-Year Fuel Savings vs Petrol</span>
+          <span id="cmp-fuel-a" class="cmp-col-a">—</span>
+          <span id="cmp-fuel-b" class="cmp-col-b">—</span>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-col-label">Battery Warranty</span>
+          <span id="cmp-war-a" class="cmp-col-a">—</span>
+          <span id="cmp-war-b" class="cmp-col-b">—</span>
+        </div>
+        <div class="cmp-row">
+          <span class="cmp-col-label">Best Suited For</span>
+          <span id="cmp-use-a" class="cmp-col-a">—</span>
+          <span id="cmp-use-b" class="cmp-col-b">—</span>
+        </div>
       </div>
     </div>
   </div>
@@ -473,41 +623,60 @@
 <section class="section models-section" id="ml-models">
   <div class="container">
     <div class="section-header">
-      <span class="section-tag">ML Performance</span>
-      <h2 class="section-title">Benchmark Results Across <span class="gradient-text">Three Algorithms</span></h2>
+      <span class="section-tag">Machine Learning Accuracy</span>
+      <h2 class="section-title">Benchmark Results Across <span class="gradient-text">Four Trained Algorithms</span></h2>
+      <p class="section-sub">Tested across 1,500 real-world Indian EV resale records using cross-validated train/test splits.</p>
     </div>
-    <div class="models-grid">
+    <div class="models-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
       <div class="model-card winner animate-on-scroll">
-        <div class="model-badge">🥇 Best Model</div>
+        <div class="model-badge">🥇 Best Model (Production)</div>
         <h3 class="model-name">Gradient Boosting</h3>
+        <p class="model-desc" style="font-size:0.8rem;color:var(--text-dim);margin-bottom:12px;">Ensemble decision trees with tuned learning rate & subsample regularization</p>
         <div class="model-metrics">
-          <div class="metric"><span class="metric-label">R² Score</span><span class="metric-val accent">0.9760</span></div>
-          <div class="metric"><span class="metric-label">MAE</span><span class="metric-val">₹ 1,08,785</span></div>
-          <div class="metric"><span class="metric-label">RMSE</span><span class="metric-val">₹ 1,49,504</span></div>
+          <div class="metric"><span class="metric-label">R² Score</span><span class="metric-val accent">0.9774</span></div>
+          <div class="metric"><span class="metric-label">MAE</span><span class="metric-val">₹ 1,05,356</span></div>
+          <div class="metric"><span class="metric-label">RMSE</span><span class="metric-val">₹ 1,45,036</span></div>
         </div>
-        <div class="r2-bar"><div class="r2-fill" style="--pct:97.6%"></div></div>
-        <span class="r2-label">97.6% variance explained</span>
+        <div class="r2-bar"><div class="r2-fill" style="--pct:97.74%"></div></div>
+        <span class="r2-label">97.7% variance explained</span>
       </div>
+
       <div class="model-card animate-on-scroll delay-1">
-        <div class="model-badge silver">🥈 Runner-Up</div>
+        <div class="model-badge silver">🥈 High Precision</div>
+        <h3 class="model-name">Extra Trees Regressor</h3>
+        <p class="model-desc" style="font-size:0.8rem;color:var(--text-dim);margin-bottom:12px;">Extremely randomized trees reducing variance across multi-feature spaces</p>
+        <div class="model-metrics">
+          <div class="metric"><span class="metric-label">R² Score</span><span class="metric-val" style="color:var(--blue)">0.9687</span></div>
+          <div class="metric"><span class="metric-label">MAE</span><span class="metric-val">₹ 1,23,101</span></div>
+          <div class="metric"><span class="metric-label">RMSE</span><span class="metric-val">₹ 1,70,553</span></div>
+        </div>
+        <div class="r2-bar"><div class="r2-fill blue" style="--pct:96.87%"></div></div>
+        <span class="r2-label">96.9% variance explained</span>
+      </div>
+
+      <div class="model-card animate-on-scroll delay-2">
+        <div class="model-badge silver">🥉 Robust Ensemble</div>
         <h3 class="model-name">Random Forest</h3>
+        <p class="model-desc" style="font-size:0.8rem;color:var(--text-dim);margin-bottom:12px;">Bootstrap aggregated decision trees with leaf sample constraints</p>
         <div class="model-metrics">
           <div class="metric"><span class="metric-label">R² Score</span><span class="metric-val">0.9667</span></div>
           <div class="metric"><span class="metric-label">MAE</span><span class="metric-val">₹ 1,26,565</span></div>
           <div class="metric"><span class="metric-label">RMSE</span><span class="metric-val">₹ 1,75,978</span></div>
         </div>
-        <div class="r2-bar"><div class="r2-fill blue" style="--pct:96.67%"></div></div>
+        <div class="r2-bar"><div class="r2-fill purple" style="--pct:96.67%"></div></div>
         <span class="r2-label">96.7% variance explained</span>
       </div>
-      <div class="model-card animate-on-scroll delay-2">
-        <div class="model-badge bronze">🥉 Baseline</div>
+
+      <div class="model-card animate-on-scroll delay-3">
+        <div class="model-badge bronze">📊 Baseline</div>
         <h3 class="model-name">Linear Regression</h3>
+        <p class="model-desc" style="font-size:0.8rem;color:var(--text-dim);margin-bottom:12px;">Standard parametric Ordinary Least Squares regression baseline</p>
         <div class="model-metrics">
           <div class="metric"><span class="metric-label">R² Score</span><span class="metric-val">0.9193</span></div>
           <div class="metric"><span class="metric-label">MAE</span><span class="metric-val">₹ 2,05,937</span></div>
           <div class="metric"><span class="metric-label">RMSE</span><span class="metric-val">₹ 2,74,066</span></div>
         </div>
-        <div class="r2-bar"><div class="r2-fill purple" style="--pct:91.93%"></div></div>
+        <div class="r2-bar"><div class="r2-fill bronze" style="--pct:91.93%"></div></div>
         <span class="r2-label">91.9% variance explained</span>
       </div>
     </div>
@@ -551,11 +720,11 @@
     <div class="faq-list">
       <div class="faq-item glass animate-on-scroll">
         <button class="faq-q">How accurate is the price estimate? <span class="faq-icon">+</span></button>
-        <div class="faq-a">Our Gradient Boosting model achieves an R² of 0.976, meaning it explains 97.6% of price variance. The Mean Absolute Error is ₹1,08,785 on a dataset ranging from ₹1.5L to ₹70L+ vehicles.</div>
+        <div class="faq-a">Our Gradient Boosting model achieves an R² of 0.9774, meaning it explains 97.7% of price variance. The Mean Absolute Error is ₹1,05,356 across mass-market to premium electric vehicles.</div>
       </div>
       <div class="faq-item glass animate-on-scroll delay-1">
-        <button class="faq-q">Which EV brands are supported? <span class="faq-icon">+</span></button>
-        <div class="faq-a">We currently support Tata (Nexon EV, Tiago EV, Tigor EV), MG (ZS EV, Comet EV), Mahindra (XUV400 EV, eVerito), Hyundai (Kona Electric, Ioniq 5), and BYD (Atto 3, e6).</div>
+        <button class="faq-q">Which EV models are supported? <span class="faq-icon">+</span></button>
+        <div class="faq-a">We support 12+ leading EV models in India across 11 brands, including Tata Nexon EV, Curvv EV, Punch EV, MG Windsor EV, ZS EV, Mahindra XUV400 EV, BYD Atto 3, Hyundai Creta EV / Ioniq 5, Kia EV6, Citroën ë-C3, BMW iX1, and Mercedes-Benz EQB.</div>
       </div>
       <div class="faq-item glass animate-on-scroll delay-2">
         <button class="faq-q">What is Battery State-of-Health (SOH)? <span class="faq-icon">+</span></button>

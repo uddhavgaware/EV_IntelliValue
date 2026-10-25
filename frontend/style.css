@@ -587,5 +587,266 @@ label{display:block;font-size:0.85rem;font-weight:600;margin-bottom:6px;color:va
   color: var(--text-muted);
 }
 
+/* ══ GALLERY INTERACTIVITY & HOVER HINTS ══ */
+.ev-card[data-calc-brand] {
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.ev-card[data-calc-brand]:hover {
+  transform: translateY(-6px);
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35), 0 0 24px rgba(16, 185, 129, 0.12);
+}
+.gallery-click-hint {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(6px);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+}
+.ev-card:hover .gallery-click-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ══ COMPARE SECTION & VISUAL PREVIEW GRID ══ */
+.compare-selectors {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.compare-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+.vs-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--blue));
+  color: #0f172a;
+  font-weight: 900;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.35);
+}
+
+.compare-visual-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 20px;
+  align-items: stretch;
+  margin-bottom: 24px;
+}
+.cmp-vehicle-card {
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.cmp-vehicle-card:hover {
+  border-color: rgba(16, 185, 129, 0.35);
+}
+.cmp-img-box {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+.cmp-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.cmp-vehicle-card:hover .cmp-img-box img {
+  transform: scale(1.04);
+}
+.cmp-brand-pill {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--accent);
+  color: #000;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+}
+.cmp-card-body {
+  padding: 16px;
+  flex-grow: 1;
+}
+.cmp-card-body h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+.cmp-card-segment {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+.cmp-card-price {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.cmp-divider-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cmp-vs-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--text-dim);
+}
+
+/* ══ HEAD TO HEAD VERDICT BOX ══ */
+.cmp-verdict-box {
+  margin: 24px 0;
+  padding: 16px 20px;
+  border-radius: 10px;
+  background: rgba(16, 185, 129, 0.07);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.verdict-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+  padding-top: 2px;
+}
+.verdict-content h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.verdict-content p {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin-bottom: 0;
+}
+
+/* ══ COMPARISON MATRIX TABLE ══ */
+.compare-table {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(15, 23, 42, 0.5);
+  margin-top: 20px;
+}
+.cmp-row {
+  display: grid;
+  grid-template-columns: 2fr 3fr 3fr;
+  padding: 12px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  align-items: center;
+  font-size: 0.88rem;
+  transition: background 0.2s ease;
+}
+.cmp-row:last-child {
+  border-bottom: none;
+}
+.cmp-row:hover:not(.header) {
+  background: rgba(255, 255, 255, 0.03);
+}
+.cmp-row.header {
+  background: rgba(255, 255, 255, 0.06);
+  font-weight: 800;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+.cmp-row.highlight-row {
+  background: rgba(16, 185, 129, 0.03);
+}
+.cmp-col-label {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.cmp-col-a, .cmp-col-b {
+  color: var(--text);
+  font-weight: 500;
+}
+.cmp-winner-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--accent);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-left: 6px;
+}
+
+@media (max-width: 768px) {
+  .compare-selectors {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .vs-badge {
+    margin: 0 auto;
+  }
+  .compare-visual-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .cmp-divider-center {
+    display: none;
+  }
+  .cmp-row {
+    grid-template-columns: 1.5fr 2fr 2fr;
+    padding: 10px 12px;
+    font-size: 0.8rem;
+  }
+}
+
 
 

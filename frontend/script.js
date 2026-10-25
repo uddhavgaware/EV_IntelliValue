@@ -162,7 +162,7 @@ async function checkApiHealth() {
     clearTimeout(timeoutId);
     if (res.ok) {
       statusDot.className = 'status-dot online';
-      statusText.textContent = 'ML Engine Online (97.6% R²)';
+      statusText.textContent = 'ML Engine Online (97.7% R²)';
       if (endpointLabel) endpointLabel.textContent = baseUrl ? 'Remote ML API Connected' : 'Local ML API Connected';
     } else {
       throw new Error(`HTTP ${res.status}`);
@@ -564,27 +564,147 @@ document.getElementById('calc-btn').addEventListener('click', async () => {
   }
 });
 
-/* ─── COMPARE TOOL ─── */
+/* ─── EXPANDED COMPARE TOOL (12 Models) ─── */
+const CMP_DB = {
+  nexon:   { name:'Tata Nexon EV',       brand:'Tata',     seg:'Compact SUV',       bat:40.5, range:453, hwyRange:320, price:1450000, resale3y:1050000, chg:'50 kW DC (~56 min)', accel:'8.9s', fuel:'₹ 3.8L', war:'8 yr / 1.6L km', use:'City & Highway',     img:'assets/nexon-ev.jpg',  tagColor:'var(--accent)' },
+  curvv:   { name:'Tata Curvv EV',       brand:'Tata',     seg:'Coupe SUV',         bat:55.0, range:585, hwyRange:420, price:1750000, resale3y:1310000, chg:'70 kW DC (~45 min)', accel:'8.6s', fuel:'₹ 4.5L', war:'8 yr / 1.6L km', use:'Highway Cruiser',    img:'assets/curvv-ev.jpg',  tagColor:'#06b6d4' },
+  punch:   { name:'Tata Punch EV',       brand:'Tata',     seg:'Micro SUV',         bat:35.0, range:421, hwyRange:295, price:1099000, resale3y: 780000, chg:'50 kW DC (~60 min)', accel:'9.5s', fuel:'₹ 3.2L', war:'8 yr / 1.6L km', use:'City Runabout',      img:'assets/nexon-ev.jpg',  tagColor:'var(--accent)' },
+  mg:      { name:'MG ZS EV',            brand:'MG',       seg:'Midsize SUV',       bat:50.3, range:461, hwyRange:340, price:2150000, resale3y:1510000, chg:'50 kW DC (~55 min)', accel:'8.5s', fuel:'₹ 4.2L', war:'8 yr / 1.5L km', use:'Long Distance',      img:'assets/mg-zsev.jpg',   tagColor:'#3b82f6' },
+  windsor: { name:'MG Windsor EV',       brand:'MG',       seg:'Crossover',         bat:38.0, range:331, hwyRange:240, price:1350000, resale3y: 960000, chg:'45 kW DC (~60 min)', accel:'9.2s', fuel:'₹ 3.5L', war:'8 yr / 1.5L km', use:'Urban Commute',      img:'assets/mg-zsev.jpg',   tagColor:'#3b82f6' },
+  xuv:     { name:'Mahindra XUV400 EV',   brand:'Mahindra', seg:'Compact SUV',       bat:39.4, range:456, hwyRange:310, price:1550000, resale3y:1080000, chg:'50 kW DC (~50 min)', accel:'8.3s', fuel:'₹ 3.9L', war:'8 yr / 1.5L km', use:'Family & City',      img:'assets/xuv400.jpg',    tagColor:'#f59e0b' },
+  be6e:    { name:'Mahindra BE 6e',       brand:'Mahindra', seg:'Next-Gen SUV',      bat:59.0, range:550, hwyRange:400, price:1890000, resale3y:1380000, chg:'175 kW DC (~20 min)',accel:'6.7s', fuel:'₹ 4.8L', war:'8 yr / 1.5L km', use:'Tech-First Buyers',  img:'assets/xuv400.jpg',    tagColor:'#f59e0b' },
+  ioniq:   { name:'Hyundai Ioniq 5',      brand:'Hyundai',  seg:'Premium Crossover', bat:72.6, range:631, hwyRange:470, price:4600000, resale3y:3250000, chg:'350 kW DC (~18 min)',accel:'5.2s', fuel:'₹ 6.2L', war:'8 yr / 1.6L km', use:'Premium Touring',    img:'assets/ioniq5.jpg',    tagColor:'#8b5cf6' },
+  creta:   { name:'Hyundai Creta EV',     brand:'Hyundai',  seg:'Midsize SUV',       bat:45.0, range:473, hwyRange:330, price:1790000, resale3y:1290000, chg:'50 kW DC (~50 min)', accel:'8.8s', fuel:'₹ 4.0L', war:'8 yr / 1.6L km', use:'Family Versatile',   img:'assets/ioniq5.jpg',    tagColor:'#8b5cf6' },
+  atto:    { name:'BYD Atto 3',           brand:'BYD',      seg:'Midsize SUV',       bat:60.5, range:521, hwyRange:380, price:2499000, resale3y:1750000, chg:'80 kW DC (~45 min)', accel:'7.3s', fuel:'₹ 5.0L', war:'8 yr / 1.6L km', use:'Long Range Comfort',img:'assets/atto3.jpg',     tagColor:'#ef4444' },
+  seal:    { name:'BYD Seal',             brand:'BYD',      seg:'Performance Sedan', bat:82.5, range:650, hwyRange:490, price:4100000, resale3y:2870000, chg:'150 kW DC (~30 min)',accel:'3.8s', fuel:'₹ 6.5L', war:'8 yr / 2.0L km', use:'Performance Driver', img:'assets/atto3.jpg',     tagColor:'#ef4444' },
+  ev6:     { name:'Kia EV6 GT',           brand:'Kia',      seg:'Crossover GT',      bat:77.4, range:708, hwyRange:520, price:6095000, resale3y:4270000, chg:'350 kW DC (~18 min)',accel:'3.5s', fuel:'₹ 7.0L', war:'10 yr / 1.6L km',use:'Performance GT',     img:'assets/ioniq5.jpg',    tagColor:'#dc2626' },
+};
+
+function fmtLakh(v) { return '₹ ' + (v / 100000).toFixed(1) + ' Lakh'; }
+
+function updateCmpVisuals() {
+  const aKey = document.getElementById('cmp-a').value;
+  const bKey = document.getElementById('cmp-b').value;
+  const a = CMP_DB[aKey], b = CMP_DB[bKey];
+  if (!a || !b) return;
+
+  // Update visual preview cards
+  const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  const setImg = (id, src) => { const el = document.getElementById(id); if (el) el.src = src; };
+  const setStyle = (id, prop, val) => { const el = document.getElementById(id); if (el) el.style[prop] = val; };
+
+  setImg('cmp-img-a', a.img);
+  setImg('cmp-img-b', b.img);
+  setEl('cmp-tag-a', a.brand);
+  setEl('cmp-tag-b', b.brand);
+  setStyle('cmp-tag-a', 'background', a.tagColor);
+  setStyle('cmp-tag-b', 'background', b.tagColor);
+  setEl('cmp-head-a', a.name);
+  setEl('cmp-head-b', b.name);
+  setEl('cmp-seg-a', a.seg);
+  setEl('cmp-seg-b', b.seg);
+  setEl('cmp-quickprice-a', fmtLakh(a.price) + ' (New)');
+  setEl('cmp-quickprice-b', fmtLakh(b.price) + ' (New)');
+}
+
+// Live-update visual cards and specs
+function runComparison(smoothScroll = false) {
+  const aKey = document.getElementById('cmp-a').value;
+  const bKey = document.getElementById('cmp-b').value;
+  const a = CMP_DB[aKey], b = CMP_DB[bKey];
+  if (!a || !b) return;
+
+  const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+
+  // Header names
+  setEl('cmp-name-a', a.name);
+  setEl('cmp-name-b', b.name);
+
+  // All comparison rows
+  setEl('cmp-segm-a', a.seg);
+  setEl('cmp-segm-b', b.seg);
+  setEl('cmp-bat-a', a.bat + ' kWh');
+  setEl('cmp-bat-b', b.bat + ' kWh');
+  setEl('cmp-range-a', a.range + ' km');
+  setEl('cmp-range-b', b.range + ' km');
+  setEl('cmp-hwyrange-a', '~' + a.hwyRange + ' km');
+  setEl('cmp-hwyrange-b', '~' + b.hwyRange + ' km');
+  setEl('cmp-chg-a', a.chg);
+  setEl('cmp-chg-b', b.chg);
+  setEl('cmp-accel-a', a.accel);
+  setEl('cmp-accel-b', b.accel);
+  setEl('cmp-price-a', fmtLakh(a.price));
+  setEl('cmp-price-b', fmtLakh(b.price));
+  setEl('cmp-resale-a', fmtLakh(a.resale3y));
+  setEl('cmp-resale-b', fmtLakh(b.resale3y));
+  setEl('cmp-fuel-a', a.fuel);
+  setEl('cmp-fuel-b', b.fuel);
+  setEl('cmp-war-a', a.war);
+  setEl('cmp-war-b', b.war);
+  setEl('cmp-use-a', a.use);
+  setEl('cmp-use-b', b.use);
+
+  // Generate smart verdict
+  const batDiff = Math.round(((b.bat - a.bat) / a.bat) * 100);
+  const rangeDiff = Math.round(((b.range - a.range) / a.range) * 100);
+  const priceDiff = Math.round(((b.price - a.price) / a.price) * 100);
+  const resaleDiffA = Math.round((a.resale3y / a.price) * 100);
+  const resaleDiffB = Math.round((b.resale3y / b.price) * 100);
+
+  let verdict = `${a.name} `;
+  if (a.price < b.price) verdict += `is ${Math.abs(priceDiff)}% more affordable`;
+  else verdict += `commands a ${Math.abs(priceDiff)}% premium`;
+  verdict += ` with ${a.bat} kWh battery (${a.seg}). `;
+  verdict += `${b.name} offers `;
+  if (batDiff > 0) verdict += `+${batDiff}% more battery capacity and `;
+  else verdict += `${batDiff}% less battery but `;
+  if (rangeDiff > 0) verdict += `+${rangeDiff}% more range. `;
+  else verdict += `a more compact package. `;
+  verdict += `3-year value retention: ${a.name} ${resaleDiffA}% vs ${b.name} ${resaleDiffB}%.`;
+  setEl('cmpVerdictText', verdict);
+
+  if (smoothScroll) {
+    document.getElementById('cmpTable').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+document.getElementById('cmp-a').addEventListener('change', () => { updateCmpVisuals(); runComparison(false); });
+document.getElementById('cmp-b').addEventListener('change', () => { updateCmpVisuals(); runComparison(false); });
+
 document.getElementById('cmp-btn').addEventListener('click', () => {
-  const a = EV_DATA[document.getElementById('cmp-a').value];
-  const b = EV_DATA[document.getElementById('cmp-b').value];
-  const t = document.getElementById('cmpTable');
+  updateCmpVisuals();
+  runComparison(true);
+});
 
-  document.getElementById('cmp-name-a').textContent   = a.name;
-  document.getElementById('cmp-name-b').textContent   = b.name;
-  document.getElementById('cmp-bat-a').textContent    = a.bat;
-  document.getElementById('cmp-bat-b').textContent    = b.bat;
-  document.getElementById('cmp-range-a').textContent  = a.range;
-  document.getElementById('cmp-range-b').textContent  = b.range;
-  document.getElementById('cmp-price-a').textContent  = a.price;
-  document.getElementById('cmp-price-b').textContent  = b.price;
-  document.getElementById('cmp-use-a').textContent    = a.use;
-  document.getElementById('cmp-use-b').textContent    = b.use;
-  document.getElementById('cmp-chg-a').textContent    = a.chg;
-  document.getElementById('cmp-chg-b').textContent    = b.chg;
+// Run comparison on initial page load so table is always pre-filled
+updateCmpVisuals();
+runComparison(false);
 
-  t.style.display = 'block';
-  t.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+/* ─── GALLERY CARD CLICK → CALCULATOR ─── */
+document.querySelectorAll('.ev-card[data-calc-brand]').forEach(card => {
+  card.addEventListener('click', () => {
+    const brand = card.dataset.calcBrand;
+    const model = card.dataset.calcModel;
+    const battery = parseFloat(card.dataset.calcBattery);
+
+    const brandSel = document.getElementById('calc-brand');
+    if (brandSel) { brandSel.value = brand; brandSel.dispatchEvent(new Event('change')); }
+
+    setTimeout(() => {
+      const modelSel = document.getElementById('calc-model');
+      if (modelSel) {
+        for (const opt of modelSel.options) {
+          if (opt.value === model) { modelSel.value = model; break; }
+        }
+      }
+      const batInput = document.getElementById('calc-battery-input');
+      const batSlider = document.getElementById('calc-battery');
+      if (batInput) batInput.value = battery;
+      if (batSlider) batSlider.value = Math.min(battery, 100);
+    }, 100);
+
+    document.getElementById('calculator').scrollIntoView({ behavior: 'smooth' });
+  });
 });
 
 /* ─── FAQ ACCORDION ─── */

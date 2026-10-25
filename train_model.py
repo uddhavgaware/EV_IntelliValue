@@ -9,6 +9,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import (
     RandomForestRegressor,
     GradientBoostingRegressor,
+    ExtraTreesRegressor,
 )
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LinearRegression
@@ -97,19 +98,26 @@ def main():
     ])
 
     candidates = {
-        "Linear Regression": LinearRegression(),
+        "Gradient Boosting": GradientBoostingRegressor(
+            n_estimators=200,
+            learning_rate=0.06,
+            max_depth=4,
+            subsample=0.9,
+            random_state=42,
+        ),
+        "Extra Trees": ExtraTreesRegressor(
+            n_estimators=200,
+            min_samples_leaf=1,
+            random_state=42,
+            n_jobs=-1,
+        ),
         "Random Forest": RandomForestRegressor(
             n_estimators=200,
             min_samples_leaf=2,
             random_state=42,
             n_jobs=-1,
         ),
-        "Gradient Boosting": GradientBoostingRegressor(
-            n_estimators=150,
-            learning_rate=0.05,
-            max_depth=3,
-            random_state=42,
-        ),
+        "Linear Regression": LinearRegression(),
     }
 
     results = []

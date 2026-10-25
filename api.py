@@ -310,21 +310,31 @@ def get_market_stats():
 @app.get("/api/models")
 def get_model_benchmarks():
     """Return ML benchmark results and accuracy metrics."""
+    global results_df
+    # reload if needed
+    if RESULTS_FILE.exists():
+        try:
+            results_df = pd.read_csv(RESULTS_FILE)
+        except Exception:
+            pass
+
     if results_df is not None:
+        best_r2 = float(results_df["R2"].max()) if "R2" in results_df.columns else 0.9774
         return {
             "models": results_df.to_dict(orient="records"),
             "best_model": "Gradient Boosting Regressor",
-            "accuracy_r2": "97.6%",
+            "accuracy_r2": f"{best_r2 * 100:.1f}%",
         }
 
     return {
         "models": [
-            {"model": "Gradient Boosting", "mae": 108785, "rmse": 149504, "r2": 0.9760},
+            {"model": "Gradient Boosting", "mae": 105356, "rmse": 145036, "r2": 0.9774},
+            {"model": "Extra Trees", "mae": 123101, "rmse": 170553, "r2": 0.9687},
             {"model": "Random Forest", "mae": 126565, "rmse": 175978, "r2": 0.9667},
             {"model": "Linear Regression", "mae": 205937, "rmse": 274066, "r2": 0.9193},
         ],
         "best_model": "Gradient Boosting Regressor",
-        "accuracy_r2": "97.6%",
+        "accuracy_r2": "97.7%",
     }
 
 
@@ -445,7 +455,7 @@ def predict_valuation(req: PredictRequest):
         battery_deduction_pct=round(bat_penalty, 1),
         mileage_penalty_pct=round(km_penalty, 1),
         market_liquidity=liquidity,
-        confidence_accuracy="97.6%",
+        confidence_accuracy="97.7%",
         vehicle_specs={
             "brand": canonical_brand,
             "model": resolved_model,

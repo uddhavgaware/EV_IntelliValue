@@ -400,7 +400,7 @@ if active_tab == "Valuation Predictor":
                         Estimated Fair Market Value
                     </span>
                     <span style="background:rgba(16, 185, 129, 0.25); color:#34d399; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:600;">
-                        97.6% MODEL ACCURACY
+                        97.7% MODEL ACCURACY
                     </span>
                 </div>
                 <div style="font-size:2.6rem; font-weight:800; color:#ffffff; margin: 10px 0 4px 0;">
