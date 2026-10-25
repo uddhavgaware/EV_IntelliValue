@@ -126,7 +126,7 @@ function getApiBaseUrl() {
   if (window.EV_CONFIG && window.EV_CONFIG.API_URL) return window.EV_CONFIG.API_URL;
   if (window.EV_API_URL) return window.EV_API_URL;
   const stored = localStorage.getItem('EV_API_URL');
-  if (stored) return stored;
+  if (stored && !stored.includes('ev-intellivalue-api')) return stored;
 
   return 'https://ev-intellivalue-backend.onrender.com';
 }
@@ -155,7 +155,7 @@ async function checkApiHealth() {
 
   const baseUrl = getApiBaseUrl();
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 4000);
+  const timeoutId = setTimeout(() => controller.abort(), 8000);
 
   try {
     const res = await fetch(`${baseUrl}/api/health`, { signal: controller.signal });
