@@ -1,0 +1,4 @@
+model,MAE_INR,RMSE_INR,R2
+Gradient Boosting,108785.62,149504.54,0.976
+Random Forest,126565.43,175978.23,0.9667
+Linear Regression,205937.2,274066.24,0.9193
