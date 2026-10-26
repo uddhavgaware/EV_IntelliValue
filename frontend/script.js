@@ -259,11 +259,20 @@ function escapeHtml(str) {
 function selectVehicle(brandKey, modelName, batteryCapacity) {
   const brandSelect = document.getElementById('calc-brand');
   const modelSelect = document.getElementById('calc-model');
+  const alertBox = document.getElementById('calcValidationAlert');
+
+  if (alertBox) {
+    alertBox.style.display = 'none';
+    alertBox.textContent = '';
+  }
 
   if (brandSelect) {
+    brandSelect.classList.remove('input-error');
     brandSelect.value = brandKey;
     populateModels(modelName);
-  } else if (modelSelect) {
+  }
+  if (modelSelect) {
+    modelSelect.classList.remove('input-error');
     modelSelect.value = modelName;
   }
 
@@ -281,24 +290,44 @@ function populateModels(selectedModelToSet = null) {
   const models = BRAND_MODELS[selectedBrand] || [];
 
   modelSelect.innerHTML = '';
-  models.forEach((m, idx) => {
+
+  // If no brand selected yet, keep model disabled with clear guidance prompt
+  if (!selectedBrand || models.length === 0) {
+    modelSelect.disabled = true;
+    const opt = document.createElement('option');
+    opt.value = '';
+    opt.disabled = true;
+    opt.selected = true;
+    opt.textContent = '-- Select Model (Choose Brand First) --';
+    modelSelect.appendChild(opt);
+    return;
+  }
+
+  modelSelect.disabled = false;
+  const placeholderOpt = document.createElement('option');
+  placeholderOpt.value = '';
+  placeholderOpt.disabled = true;
+  if (!selectedModelToSet) {
+    placeholderOpt.selected = true;
+  }
+  placeholderOpt.textContent = '-- Select Model --';
+  modelSelect.appendChild(placeholderOpt);
+
+  models.forEach(m => {
     const opt = document.createElement('option');
     opt.value = m.model;
     opt.textContent = `${m.model} (${m.battery} kWh · ${m.range} km)`;
     if (selectedModelToSet && m.model === selectedModelToSet) {
       opt.selected = true;
-    } else if (!selectedModelToSet && idx === 0) {
-      opt.selected = true;
     }
     modelSelect.appendChild(opt);
   });
 
-  const chosenModel = selectedModelToSet
-    ? models.find(m => m.model === selectedModelToSet)
-    : models[0];
-
-  if (chosenModel) {
-    updateBatteryDefault(chosenModel.battery);
+  if (selectedModelToSet) {
+    const chosenModel = models.find(m => m.model === selectedModelToSet);
+    if (chosenModel) {
+      updateBatteryDefault(chosenModel.battery);
+    }
   }
 }
 
@@ -398,6 +427,9 @@ const fmtINR = n => '₹ ' + Math.round(n).toLocaleString('en-IN');
 const calcBrand = document.getElementById('calc-brand');
 if (calcBrand) {
   calcBrand.addEventListener('change', () => {
+    calcBrand.classList.remove('input-error');
+    const alertBox = document.getElementById('calcValidationAlert');
+    if (alertBox) alertBox.style.display = 'none';
     populateModels();
   });
 }
@@ -406,6 +438,9 @@ if (calcBrand) {
 const calcModel = document.getElementById('calc-model');
 if (calcModel) {
   calcModel.addEventListener('change', function() {
+    this.classList.remove('input-error');
+    const alertBox = document.getElementById('calcValidationAlert');
+    if (alertBox) alertBox.style.display = 'none';
     const brand = document.getElementById('calc-brand').value;
     const models = BRAND_MODELS[brand] || [];
     const found = models.find(m => m.model === this.value);
@@ -456,12 +491,55 @@ if (kmSlider && kmBox) {
 
 /* ─── CALCULATE BUTTON CLICK HANDLER ─── */
 document.getElementById('calc-btn').addEventListener('click', async () => {
-  const brandInput = document.getElementById('calc-brand').value;
-  const modelInput = document.getElementById('calc-model') ? document.getElementById('calc-model').value : null;
+  const brandSelect = document.getElementById('calc-brand');
+  const modelSelect = document.getElementById('calc-model');
+  const alertBox = document.getElementById('calcValidationAlert');
+  const placeholder = document.getElementById('resultPlaceholder') || document.querySelector('.result-placeholder');
+  const resultOutput = document.getElementById('resultOutput');
+
+  // Clear previous error states
+  if (brandSelect) brandSelect.classList.remove('input-error');
+  if (modelSelect) modelSelect.classList.remove('input-error');
+  if (alertBox) {
+    alertBox.style.display = 'none';
+    alertBox.textContent = '';
+  }
+
+  const brandInput = brandSelect ? brandSelect.value.trim() : '';
+  const modelInput = modelSelect ? modelSelect.value.trim() : '';
+
+  // REQUIRE EXPLICIT CAR SELECTION
+  if (!brandInput || !modelInput) {
+    let msg = '⚠️ Please select both a vehicle Brand and Model before calculating valuation.';
+    if (!brandInput && !modelInput) {
+      if (brandSelect) brandSelect.classList.add('input-error');
+      if (modelSelect) modelSelect.classList.add('input-error');
+    } else if (!brandInput) {
+      if (brandSelect) brandSelect.classList.add('input-error');
+      msg = '⚠️ Please select a vehicle Brand / Manufacturer.';
+    } else if (!modelInput) {
+      if (modelSelect) modelSelect.classList.add('input-error');
+      msg = '⚠️ Please select a specific Vehicle Model to calculate resale value.';
+    }
+
+    if (alertBox) {
+      alertBox.textContent = msg;
+      alertBox.style.display = 'flex';
+      alertBox.classList.remove('shake');
+      void alertBox.offsetWidth;
+      alertBox.classList.add('shake');
+    }
+
+    // Keep placeholder visible, do NOT show calculation
+    if (placeholder) placeholder.style.display = 'flex';
+    if (resultOutput) resultOutput.style.display = 'none';
+    return;
+  }
+
   const year       = parseInt(document.getElementById('calc-year').value);
   const region     = document.getElementById('calc-region') ? document.getElementById('calc-region').value : 'Mumbai';
   const battery    = parseFloat(document.getElementById('calc-battery-input')?.value || document.getElementById('calc-battery')?.value || 40.5);
-  const health     = parseFloat(document.getElementById('calc-health-input')?.value || document.getElementById('calc-health')?.value || 85);
+  const health     = parseFloat(document.getElementById('calc-health-input')?.value || document.getElementById('calc-health')?.value || 88);
   const km         = parseInt(document.getElementById('calc-km-input')?.value || document.getElementById('calc-km')?.value || 30000);
   const btn        = document.getElementById('calc-btn');
 
@@ -514,8 +592,8 @@ document.getElementById('calc-btn').addEventListener('click', async () => {
       badge.style.color = '#10b981';
     }
 
-    document.querySelector('.result-placeholder').style.display = 'none';
-    document.getElementById('resultOutput').style.display = 'block';
+    if (placeholder) placeholder.style.display = 'none';
+    if (resultOutput) resultOutput.style.display = 'block';
 
   } catch (err) {
     console.warn('API call failed, running calibrated local calculation:', err);
@@ -524,29 +602,58 @@ document.getElementById('calc-btn').addEventListener('click', async () => {
     const foundModel = baseModels.find(m => m.model === modelInput);
     const basePrice   = foundModel ? foundModel.price : (BRAND_BASE[brandInput] || 1200000);
 
-    const currentYear = new Date().getFullYear();
+    const currentYear = 2026;
     const age         = Math.max(0, currentYear - year);
-    const ageFactor   = Math.max(0.35, 1 - age * 0.075);
-    const usageFactor = Math.max(0.70, 1 - km / 500000);
-    const batFactor   = health / 100;
-    const mid         = basePrice * ageFactor * usageFactor * batFactor;
-    const estRange    = Math.round((foundModel ? foundModel.range : battery * 7.5) * (health / 100) * 0.88);
-    const retention   = Math.round((mid / basePrice) * 100);
+    const ageRetentionCurves = {
+      0: 0.96,
+      1: 0.84,
+      2: 0.71,
+      3: 0.58,
+      4: 0.48,
+      5: 0.40,
+      6: 0.33,
+      7: 0.28,
+      8: 0.24
+    };
+    const baseRetention = ageRetentionCurves[age] !== undefined
+      ? ageRetentionCurves[age]
+      : Math.max(0.20, 0.40 - (age - 5) * 0.04);
 
-    document.getElementById('res-low').textContent  = fmtINR(mid * 0.95);
+    const expectedSoh = Math.max(70.0, 100.0 - (age * 2.3));
+    const sohDelta = health - expectedSoh;
+    const sohMultiplier = Math.max(0.78, Math.min(1.12, 1.0 + (sohDelta * 0.008)));
+
+    const expectedKm = Math.max(6000, age * 12000);
+    const kmDelta = km - expectedKm;
+    const kmMultiplier = Math.max(0.85, Math.min(1.10, 1.0 - (kmDelta / 350000)));
+
+    const mid = Math.round(basePrice * baseRetention * sohMultiplier * kmMultiplier);
+    const low = Math.round(mid * 0.95);
+    const high = Math.round(mid * 1.05);
+
+    const retention = Math.round((mid / basePrice) * 100);
+    const factoryRange = foundModel ? foundModel.range : (battery * 7.5);
+    const estRange = Math.round(factoryRange * (health / 100.0) * 0.88);
+
+    const ageFactorPct = ((1.0 - baseRetention) * 100).toFixed(1);
+    const batDeductionPct = (health < expectedSoh ? ((expectedSoh - health) * 0.8).toFixed(1) : '0.0');
+    const kmPenaltyPct = (km > expectedKm ? (((km - expectedKm) / 350000) * 100).toFixed(1) : '0.0');
+
+    document.getElementById('res-low').textContent  = fmtINR(low);
     document.getElementById('res-mid').textContent  = fmtINR(mid);
-    document.getElementById('res-high').textContent = fmtINR(mid * 1.05);
+    document.getElementById('res-high').textContent = fmtINR(high);
 
     if (document.getElementById('res-retention')) {
-      document.getElementById('res-retention').textContent = `${retention}% (Calibrated)`;
+      const tier = retention >= 70 ? 'Prime Tier' : retention >= 50 ? 'Strong Value' : 'Value Tier';
+      document.getElementById('res-retention').textContent = `${retention}% (${tier})`;
     }
     if (document.getElementById('res-eff-range')) {
       document.getElementById('res-eff-range').textContent = `~${estRange} km`;
     }
 
-    document.getElementById('f-age').textContent = `-${((1 - ageFactor) * 100).toFixed(1)}%`;
-    document.getElementById('f-bat').textContent = `-${(100 - health).toFixed(0)}%`;
-    document.getElementById('f-km').textContent  = `-${((1 - usageFactor) * 100).toFixed(1)}%`;
+    document.getElementById('f-age').textContent = `-${ageFactorPct}%`;
+    document.getElementById('f-bat').textContent = `-${batDeductionPct}%`;
+    document.getElementById('f-km').textContent  = `-${kmPenaltyPct}%`;
 
     const badge = document.getElementById('resultSourceBadge');
     if (badge) {
@@ -555,8 +662,8 @@ document.getElementById('calc-btn').addEventListener('click', async () => {
       badge.style.color = '#f59e0b';
     }
 
-    document.querySelector('.result-placeholder').style.display = 'none';
-    document.getElementById('resultOutput').style.display = 'block';
+    if (placeholder) placeholder.style.display = 'none';
+    if (resultOutput) resultOutput.style.display = 'block';
 
   } finally {
     btn.innerHTML = origBtnText;
@@ -727,22 +834,7 @@ document.querySelectorAll('.ev-card[data-calc-brand]').forEach(card => {
     const model = card.dataset.calcModel;
     const battery = parseFloat(card.dataset.calcBattery);
 
-    const brandSel = document.getElementById('calc-brand');
-    if (brandSel) { brandSel.value = brand; brandSel.dispatchEvent(new Event('change')); }
-
-    setTimeout(() => {
-      const modelSel = document.getElementById('calc-model');
-      if (modelSel) {
-        for (const opt of modelSel.options) {
-          if (opt.value === model) { modelSel.value = model; break; }
-        }
-      }
-      const batInput = document.getElementById('calc-battery-input');
-      const batSlider = document.getElementById('calc-battery');
-      if (batInput) batInput.value = battery;
-      if (batSlider) batSlider.value = Math.min(battery, 100);
-    }, 100);
-
+    selectVehicle(brand, model, battery);
     document.getElementById('calculator').scrollIntoView({ behavior: 'smooth' });
   });
 });

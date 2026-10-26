@@ -363,14 +363,15 @@ def predict_valuation(req: PredictRequest):
     Falls back gracefully to calibrated statistical equations if the serialized model is unavailable.
     """
     raw_brand = req.brand.strip()
+    if not raw_brand:
+        raise HTTPException(status_code=400, detail="Vehicle brand is required.")
+
+    if not req.model or not req.model.strip():
+        raise HTTPException(status_code=400, detail="Vehicle model is required.")
+
     brand_key = raw_brand.lower()
     canonical_brand = BRAND_MAP.get(brand_key, raw_brand.capitalize())
-
-    # Resolve model name
-    if req.model and req.model.strip():
-        resolved_model = req.model.strip()
-    else:
-        resolved_model = DEFAULT_MODELS.get(brand_key, "Nexon EV")
+    resolved_model = req.model.strip()
 
     # Retrieve specifications from catalog
     brand_catalog = MODEL_CATALOG.get(canonical_brand, {})
@@ -414,17 +415,27 @@ def predict_valuation(req: PredictRequest):
             print(f"[WARN] ML inference error, falling back to heuristic: {e}")
             used_source = "calibrated_heuristic"
             base = benchmark_price
-            age_f = max(0.35, 1 - vehicle_age * 0.075)
-            usage_f = max(0.70, 1 - req.km_driven / 500000)
-            bat_f = req.battery_health_percent / 100.0
-            pred_val = base * age_f * usage_f * bat_f
+            age_curves = {0: 0.96, 1: 0.84, 2: 0.71, 3: 0.58, 4: 0.48, 5: 0.40}
+            base_retention = age_curves.get(vehicle_age, max(0.28, 0.40 - (vehicle_age - 5) * 0.04))
+            expected_soh = 100.0 - (vehicle_age * 2.3)
+            soh_diff = req.battery_health_percent - expected_soh
+            soh_multiplier = max(0.78, min(1.12, 1.0 + (soh_diff * 0.008)))
+            expected_km = max(6000, vehicle_age * 12000)
+            km_diff = req.km_driven - expected_km
+            km_multiplier = max(0.85, min(1.10, 1.0 - (km_diff / 350000.0)))
+            pred_val = base * base_retention * soh_multiplier * km_multiplier
     else:
         used_source = "calibrated_heuristic"
         base = benchmark_price
-        age_f = max(0.35, 1 - vehicle_age * 0.075)
-        usage_f = max(0.70, 1 - req.km_driven / 500000)
-        bat_f = req.battery_health_percent / 100.0
-        pred_val = base * age_f * usage_f * bat_f
+        age_curves = {0: 0.96, 1: 0.84, 2: 0.71, 3: 0.58, 4: 0.48, 5: 0.40}
+        base_retention = age_curves.get(vehicle_age, max(0.28, 0.40 - (vehicle_age - 5) * 0.04))
+        expected_soh = 100.0 - (vehicle_age * 2.3)
+        soh_diff = req.battery_health_percent - expected_soh
+        soh_multiplier = max(0.78, min(1.12, 1.0 + (soh_diff * 0.008)))
+        expected_km = max(6000, vehicle_age * 12000)
+        km_diff = req.km_driven - expected_km
+        km_multiplier = max(0.85, min(1.10, 1.0 - (km_diff / 350000.0)))
+        pred_val = base * base_retention * soh_multiplier * km_multiplier
 
     # Bounds and breakdown metrics
     low_estimate = pred_val * 0.95
@@ -433,9 +444,11 @@ def predict_valuation(req: PredictRequest):
     retention_pct = min(100.0, (pred_val / benchmark_price) * 100.0) if benchmark_price > 0 else 70.0
     effective_range = int(range_km * (req.battery_health_percent / 100.0) * 0.88)
 
-    age_penalty = (1 - max(0.35, 1 - vehicle_age * 0.075)) * 100.0
-    bat_penalty = float(100.0 - req.battery_health_percent)
-    km_penalty = (1 - max(0.70, 1 - req.km_driven / 500000.0)) * 100.0
+    age_curves = {0: 0.96, 1: 0.84, 2: 0.71, 3: 0.58, 4: 0.48, 5: 0.40}
+    base_retention = age_curves.get(vehicle_age, max(0.28, 0.40 - (vehicle_age - 5) * 0.04))
+    age_penalty = (1.0 - base_retention) * 100.0
+    bat_penalty = float(max(0.0, 100.0 - req.battery_health_percent))
+    km_penalty = float(max(0.0, (req.km_driven / 350000.0) * 100.0))
 
     liquidity = "High Tier" if retention_pct > 65 else ("Moderate Tier" if retention_pct > 50 else "Value Tier")
 

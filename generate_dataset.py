@@ -64,28 +64,31 @@ def generate_dataset():
                     + rng.normal(0, 1.0), 68.0, 100.0)), 1
         )
 
-        # 2026 Indian Resale Depreciation Curve (documenting the 3-Year Cliff: 50-55% retention)
+        # 2026 Indian Resale Depreciation Curve (documenting the 3-Year Cliff: 55-60% retention)
         if vehicle_age == 0:
-            age_factor = 0.98
+            age_factor = rng.uniform(0.95, 0.98)
         elif vehicle_age == 1:
-            age_factor = rng.uniform(0.79, 0.83) # ~20% drop year 1
+            age_factor = rng.uniform(0.82, 0.86) # ~16% drop year 1
         elif vehicle_age == 2:
-            age_factor = rng.uniform(0.64, 0.69) # ~33% drop year 2
+            age_factor = rng.uniform(0.69, 0.74) # ~28% drop year 2
         elif vehicle_age == 3:
-            age_factor = rng.uniform(0.50, 0.55) # 50-55% 3-year cliff documented in 2026 studies
+            age_factor = rng.uniform(0.55, 0.60) # 55-60% 3-year cliff documented in 2026 secondary market studies
         elif vehicle_age == 4:
-            age_factor = rng.uniform(0.42, 0.47)
+            age_factor = rng.uniform(0.45, 0.50)
+        elif vehicle_age == 5:
+            age_factor = rng.uniform(0.38, 0.42)
         else:
-            age_factor = max(0.30, 0.40 - (vehicle_age - 5) * 0.04)
+            age_factor = max(0.28, 0.38 - (vehicle_age - 5) * 0.04)
 
-        # Non-linear SOH impact: High-ticket battery replacement anxiety accelerates depreciation below 85% SOH
-        soh_ratio = battery_health / 100.0
-        if soh_ratio >= 0.88:
-            battery_factor = soh_ratio ** 1.15
-        else:
-            battery_factor = (soh_ratio ** 1.6)
+        # SOH relative adjustment: normal expected SOH degradation is ~2.3%/yr
+        expected_soh = 100.0 - (vehicle_age * 2.3)
+        soh_diff = battery_health - expected_soh
+        soh_factor = float(np.clip(1.0 + (soh_diff * 0.008), 0.78, 1.12))
 
-        usage_factor = max(0.70, 1.0 - (km_driven / 400000))
+        # KM relative adjustment: normal expected km is ~12,000 km/yr
+        expected_km = max(6000, vehicle_age * 12000)
+        km_diff = km_driven - expected_km
+        km_factor = float(np.clip(1.0 - (km_diff / 350000.0), 0.85, 1.10))
 
         region = rng.choice(
             ["Pune", "Mumbai", "Delhi", "Bengaluru", "Hyderabad", "Chennai"],
@@ -104,10 +107,10 @@ def generate_dataset():
         selling_price = (
             base_price
             * age_factor
-            * usage_factor
-            * battery_factor
+            * soh_factor
+            * km_factor
             * reg_factor
-            * rng.uniform(0.95, 1.05)
+            * rng.uniform(0.97, 1.03)
         )
 
         selling_price = max(180000, round(selling_price / 1000) * 1000)
