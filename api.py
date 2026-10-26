@@ -51,22 +51,38 @@ MODEL_CATALOG: Dict[str, Dict[str, Dict[str, Any]]] = {
         "Nexon EV": {"battery": 40.5, "range": 453, "curated_price": 1450000},
         "Curvv EV": {"battery": 55.0, "range": 585, "curated_price": 1750000},
         "Punch EV": {"battery": 35.0, "range": 421, "curated_price": 1099000},
-        "Tiago EV": {"battery": 24.0, "range": 315, "curated_price": 899000},
+        # Tiago EV: 19.2 kWh (XE ₹6.99L) and 24 kWh Long Range (XZ Plus ₹9.09L)
+        "Tiago EV": {"battery": 19.2, "range": 230, "curated_price": 699000},
+        "Tiago EV Long Range": {"battery": 24.0, "range": 315, "curated_price": 909000},
         "Tigor EV": {"battery": 26.0, "range": 315, "curated_price": 1150000},
     },
     "MG": {
-        "Windsor EV": {"battery": 38.0, "range": 331, "curated_price": 1350000},
-        "ZS EV": {"battery": 50.3, "range": 461, "curated_price": 2150000},
-        "Comet EV": {"battery": 17.3, "range": 230, "curated_price": 699000},
+        # Comet EV: Executive ₹7.90L | Exclusive BE ₹10.61L
+        "Comet EV": {"battery": 17.3, "range": 230, "curated_price": 790000},
+        # Windsor EV: Excite ₹14.70L | Essence Pro ₹19.00L
+        "Windsor EV": {"battery": 38.0, "range": 331, "curated_price": 1470000},
+        # ZS EV: Exclusive ₹19.28L | Essence ₹22.21L
+        "ZS EV": {"battery": 50.3, "range": 461, "curated_price": 1928000},
     },
     "Mahindra": {
-        "XUV400 EV": {"battery": 39.4, "range": 456, "curated_price": 1550000},
+        # XUV 3XO EV: Smart 25kWh ₹9.99L | Empowered+ S 35kWh ₹13.99L
+        "XUV 3XO EV": {"battery": 25.0, "range": 375, "curated_price": 999000},
+        "XUV 3XO EV Long Range": {"battery": 35.0, "range": 460, "curated_price": 1249000},
+        # XUV400 EV: Creative Plus MR 30kWh ₹12.49L | Empowered Plus A 45kWh ₹17.89L
+        "XUV400 EV": {"battery": 30.0, "range": 375, "curated_price": 1249000},
+        "XUV400 EV 45": {"battery": 45.0, "range": 456, "curated_price": 1434000},
+        # BE 6e: Pack One 59kWh ₹18.90L | Pack Three 79kWh ₹26.90L
         "BE 6e": {"battery": 59.0, "range": 550, "curated_price": 1890000},
-        "XEV 9e": {"battery": 79.0, "range": 656, "curated_price": 2190000},
+        "BE 6e 79": {"battery": 79.0, "range": 682, "curated_price": 2450000},
+        # XEV 9e: Pack One ₹21.90L | Pack Three ₹30.50L
+        "XEV 9e": {"battery": 59.0, "range": 600, "curated_price": 2190000},
+        "XEV 9e 79": {"battery": 79.0, "range": 656, "curated_price": 2490000},
         "eVerito": {"battery": 21.2, "range": 140, "curated_price": 600000},
     },
     "Hyundai": {
-        "Creta EV": {"battery": 45.0, "range": 473, "curated_price": 1790000},
+        # Creta EV: Executive 42kWh ₹18.03L | Premium(O) 51.4kWh ₹23.82L
+        "Creta EV": {"battery": 42.0, "range": 473, "curated_price": 1803000},
+        "Creta EV Long Range": {"battery": 51.4, "range": 574, "curated_price": 2149000},
         "Ioniq 5": {"battery": 72.6, "range": 631, "curated_price": 4600000},
         "Kona Electric": {"battery": 39.2, "range": 452, "curated_price": 2380000},
     },
@@ -77,6 +93,9 @@ MODEL_CATALOG: Dict[str, Dict[str, Dict[str, Any]]] = {
         "e6": {"battery": 71.7, "range": 500, "curated_price": 2900000},
     },
     "Kia": {
+        # Carens EV: HTK Plus 42kWh ₹18.04L | X-Line ER 6-seat 51.4kWh ₹25.00L
+        "Carens EV": {"battery": 42.0, "range": 450, "curated_price": 1804000},
+        "Carens EV Long Range": {"battery": 51.4, "range": 550, "curated_price": 2249000},
         "EV6": {"battery": 77.4, "range": 708, "curated_price": 6095000},
         "EV9": {"battery": 99.8, "range": 561, "curated_price": 12900000},
     },
@@ -117,10 +136,10 @@ MODEL_CATALOG: Dict[str, Dict[str, Dict[str, Any]]] = {
 DEFAULT_MODELS: Dict[str, str] = {
     "tata": "Nexon EV",
     "mg": "Windsor EV",
-    "mahindra": "XUV400 EV",
+    "mahindra": "XUV 3XO EV",
     "hyundai": "Creta EV",
     "byd": "Atto 3",
-    "kia": "EV6",
+    "kia": "Carens EV",
     "citroen": "ë-C3",
     "citroën": "ë-C3",
     "bmw": "iX1",

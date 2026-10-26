@@ -20,22 +20,38 @@ const BRAND_MODELS = {
     { model: 'Nexon EV', battery: 40.5, range: 453, price: 1450000, seg: 'Compact SUV' },
     { model: 'Curvv EV', battery: 55.0, range: 585, price: 1750000, seg: 'Coupe SUV' },
     { model: 'Punch EV', battery: 35.0, range: 421, price: 1099000, seg: 'Micro SUV' },
-    { model: 'Tiago EV', battery: 24.0, range: 315, price: 899000, seg: 'Hatchback' },
+    // Tiago EV — 19.2 kWh (XE ₹6.99L) & 24 kWh (XZ Plus ₹9.09L)
+    { model: 'Tiago EV', battery: 19.2, range: 230, price: 699000, seg: 'Hatchback' },
+    { model: 'Tiago EV Long Range', battery: 24.0, range: 315, price: 909000, seg: 'Hatchback' },
     { model: 'Tigor EV', battery: 26.0, range: 315, price: 1150000, seg: 'Sedan' },
   ],
   mg: [
-    { model: 'Windsor EV', battery: 38.0, range: 331, price: 1350000, seg: 'Crossover Utility' },
-    { model: 'ZS EV', battery: 50.3, range: 461, price: 2150000, seg: 'Midsize SUV' },
-    { model: 'Comet EV', battery: 17.3, range: 230, price: 699000, seg: 'Urban Micro' },
+    // MG Comet EV — Executive ₹7.90L | Exclusive BE ₹10.61L
+    { model: 'Comet EV', battery: 17.3, range: 230, price: 790000, seg: 'Urban Micro' },
+    // MG Windsor EV — Excite ₹14.70L | Essence Pro ₹19.00L
+    { model: 'Windsor EV', battery: 38.0, range: 331, price: 1470000, seg: 'Crossover Utility' },
+    // MG ZS EV — Exclusive ₹19.28L | Essence ₹22.21L
+    { model: 'ZS EV', battery: 50.3, range: 461, price: 1928000, seg: 'Midsize SUV' },
   ],
   mahindra: [
-    { model: 'XUV400 EV', battery: 39.4, range: 456, price: 1550000, seg: 'Compact SUV' },
-    { model: 'BE 6e', battery: 59.0, range: 550, price: 1890000, seg: 'Next-Gen SUV' },
-    { model: 'XEV 9e', battery: 79.0, range: 656, price: 2190000, seg: 'Coupe SUV' },
+    // XUV 3XO EV — Smart 25kWh ₹9.99L → Empowered+ S 35kWh ₹13.99L
+    { model: 'XUV 3XO EV', battery: 25.0, range: 375, price: 999000, seg: 'Micro SUV' },
+    { model: 'XUV 3XO EV Long Range', battery: 35.0, range: 460, price: 1249000, seg: 'Micro SUV' },
+    // XUV400 EV — Creative Plus MR 30kWh ₹12.49L → Empowered Plus A 45 ₹17.89L
+    { model: 'XUV400 EV', battery: 30.0, range: 375, price: 1249000, seg: 'Compact SUV' },
+    { model: 'XUV400 EV 45', battery: 45.0, range: 456, price: 1434000, seg: 'Compact SUV' },
+    // BE 6e Pack — 59kWh ₹18.90L | 79kWh up to ₹26.90L
+    { model: 'BE 6e', battery: 59.0, range: 550, price: 1890000, seg: 'Next-Gen Coupe SUV' },
+    { model: 'BE 6e 79', battery: 79.0, range: 682, price: 2450000, seg: 'Next-Gen Coupe SUV' },
+    // XEV 9e Pack — Pack One ₹21.90L | Pack Three ₹30.50L
+    { model: 'XEV 9e', battery: 59.0, range: 600, price: 2190000, seg: 'Flagship Coupe SUV' },
+    { model: 'XEV 9e 79', battery: 79.0, range: 656, price: 2490000, seg: 'Flagship Coupe SUV' },
     { model: 'eVerito', battery: 21.2, range: 140, price: 600000, seg: 'Fleet Sedan' },
   ],
   hyundai: [
-    { model: 'Creta EV', battery: 45.0, range: 473, price: 1790000, seg: 'Midsize SUV' },
+    // Creta EV — Executive 42kWh ₹18.03L | Premium(O) 51.4kWh ₹23.82L
+    { model: 'Creta EV', battery: 42.0, range: 473, price: 1803000, seg: 'Midsize SUV' },
+    { model: 'Creta EV Long Range', battery: 51.4, range: 574, price: 2149000, seg: 'Midsize SUV' },
     { model: 'Ioniq 5', battery: 72.6, range: 631, price: 4600000, seg: 'Premium Electric' },
     { model: 'Kona Electric', battery: 39.2, range: 452, price: 2380000, seg: 'Urban SUV' },
   ],
@@ -46,6 +62,9 @@ const BRAND_MODELS = {
     { model: 'e6', battery: 71.7, range: 500, price: 2900000, seg: 'Premium MPV' },
   ],
   kia: [
+    // Carens EV — HTK Plus 42kWh ₹18.04L | X-Line ER 6-seat 51.4kWh ₹25.00L
+    { model: 'Carens EV', battery: 42.0, range: 450, price: 1804000, seg: 'Family MPV' },
+    { model: 'Carens EV Long Range', battery: 51.4, range: 550, price: 2249000, seg: 'Family MPV' },
     { model: 'EV6', battery: 77.4, range: 708, price: 6095000, seg: 'Crossover GT' },
     { model: 'EV9', battery: 99.8, range: 561, price: 12900000, seg: 'Flagship 3-Row SUV' },
   ],
@@ -102,9 +121,9 @@ Object.entries(BRAND_MODELS).forEach(([brandKey, models]) => {
 });
 
 const BRAND_BASE = {
-  tata: 1200000, mg: 1350000, mahindra: 1400000, hyundai: 1700000,
-  byd: 2500000, kia: 5500000, citroen: 1100000, bmw: 6500000,
-  mercedes: 6800000, volvo: 5600000, audi: 11000000, porsche: 15000000,
+  tata: 999000, mg: 790000, mahindra: 999000, hyundai: 1803000,
+  byd: 2499000, kia: 1804000, citroen: 1100000, bmw: 6500000,
+  mercedes: 6600000, volvo: 5690000, audi: 11500000, porsche: 16100000,
   tesla: 5500000,
 };
 
