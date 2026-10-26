@@ -22,6 +22,14 @@ MODEL_FILE = BASE_DIR / "models" / "ev_price_model.joblib"
 DATA_FILE = BASE_DIR / "ev_dataset.csv"
 RESULTS_FILE = BASE_DIR / "model_results.csv"
 
+# Global Plotly Chart Configuration: Disable mouse-wheel scroll capture so page scrolling is smooth
+CHART_CONFIG = {
+    "scrollZoom": False,
+    "displayModeBar": True,
+    "displaylogo": False,
+    "modeBarButtonsToRemove": ["lasso2d", "select2d"],
+}
+
 # -----------------------------------------------------------------------------
 # Premium Custom Styling (Clean Corporate Dark Mode - No Emojis)
 # -----------------------------------------------------------------------------
@@ -464,7 +472,7 @@ if active_tab == "Valuation Predictor":
             paper_bgcolor="rgba(0,0,0,0)",
             font={"color": "#f8fafc"},
         )
-        st.plotly_chart(gauge_fig, use_container_width=True)
+        st.plotly_chart(gauge_fig, use_container_width=True, config=CHART_CONFIG)
 
 # -----------------------------------------------------------------------------
 # TAB 2: MARKET ANALYTICS
@@ -534,16 +542,17 @@ elif active_tab == "Market Analytics":
                 y="selling_price_inr",
                 color="model",
                 barmode="group",
-                labels={"selling_price_inr": "Average Price (INR)", "brand": "Manufacturer"},
+                labels={"selling_price_inr": "Average Price (INR)", "brand": "Manufacturer", "model": "Model"},
                 color_discrete_sequence=px.colors.qualitative.Prism,
             )
             fig_bar.update_layout(
                 paper_bgcolor="rgba(0,0,0,0)",
                 plot_bgcolor="rgba(0,0,0,0)",
                 font=dict(color="#94a3b8"),
-                legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+                showlegend=False,
+                margin=dict(t=25, b=35, l=40, r=20),
             )
-            st.plotly_chart(fig_bar, use_container_width=True)
+            st.plotly_chart(fig_bar, use_container_width=True, config=CHART_CONFIG)
 
         with c_right:
             st.markdown("##### Regional Market Volume and Average Resale Price")
@@ -566,8 +575,9 @@ elif active_tab == "Market Analytics":
                 plot_bgcolor="rgba(0,0,0,0)",
                 font=dict(color="#94a3b8"),
                 showlegend=False,
+                margin=dict(t=25, b=35, l=40, r=20),
             )
-            st.plotly_chart(fig_scatter, use_container_width=True)
+            st.plotly_chart(fig_scatter, use_container_width=True, config=CHART_CONFIG)
 
         c_scatter1, c_scatter2 = st.columns(2)
         with c_scatter1:
@@ -590,8 +600,10 @@ elif active_tab == "Market Analytics":
                 paper_bgcolor="rgba(0,0,0,0)",
                 plot_bgcolor="rgba(0,0,0,0)",
                 font=dict(color="#94a3b8"),
+                margin=dict(t=25, b=35, l=40, r=20),
+                legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5),
             )
-            st.plotly_chart(fig_km, use_container_width=True)
+            st.plotly_chart(fig_km, use_container_width=True, config=CHART_CONFIG)
 
         with c_scatter2:
             st.markdown("##### Valuation Distribution by Battery Pack Size")
@@ -607,8 +619,9 @@ elif active_tab == "Market Analytics":
                 plot_bgcolor="rgba(0,0,0,0)",
                 font=dict(color="#94a3b8"),
                 showlegend=False,
+                margin=dict(t=25, b=35, l=40, r=20),
             )
-            st.plotly_chart(fig_bat, use_container_width=True)
+            st.plotly_chart(fig_bat, use_container_width=True, config=CHART_CONFIG)
 
         # Filter Section
         st.markdown("##### Database Query Filter")
@@ -717,7 +730,7 @@ elif active_tab == "Battery Degradation Lab":
             plot_bgcolor="rgba(0,0,0,0)",
             font=dict(color="#94a3b8"),
         )
-        st.plotly_chart(fig_deg, use_container_width=True)
+        st.plotly_chart(fig_deg, use_container_width=True, config=CHART_CONFIG)
 
         current_sim_soh = projected_soh[sim_years]
         current_retained_kwh = (current_sim_soh / 100) * base_kwh
@@ -822,7 +835,7 @@ elif active_tab == "Vehicle Comparison":
         plot_bgcolor="rgba(0,0,0,0)",
         font=dict(color="#94a3b8"),
     )
-    st.plotly_chart(fig_comp, use_container_width=True)
+    st.plotly_chart(fig_comp, use_container_width=True, config=CHART_CONFIG)
 
 # -----------------------------------------------------------------------------
 # TAB 5: TOTAL COST OF OWNERSHIP
@@ -898,7 +911,7 @@ elif active_tab == "Total Cost of Ownership":
             plot_bgcolor="rgba(0,0,0,0)",
             font=dict(color="#94a3b8"),
         )
-        st.plotly_chart(fig_cost, use_container_width=True)
+        st.plotly_chart(fig_cost, use_container_width=True, config=CHART_CONFIG)
 
 # -----------------------------------------------------------------------------
 # TAB 6: MODEL BENCHMARK & TECH
@@ -907,11 +920,11 @@ elif active_tab == "Model Benchmark & Tech":
     st.subheader("Model Benchmark & Pipeline Architecture")
     st.caption("Quantitative regression performance benchmarks, validation metrics, and feature importance.")
 
-    t1, t2 = st.columns([1.1, 0.9], gap="large")
-
-    with t1:
-        st.markdown("##### Regressor Benchmark Comparison")
-        if results_df is not None:
+    # Section 1: Regressor Performance Benchmark
+    st.markdown("##### Regressor Performance Benchmark Comparison")
+    if results_df is not None:
+        c_bench1, c_bench2 = st.columns([1, 1], gap="medium")
+        with c_bench1:
             st.dataframe(
                 results_df.style.format({
                     "MAE_INR": "₹{:,.2f}",
@@ -919,8 +932,11 @@ elif active_tab == "Model Benchmark & Tech":
                     "R2": "{:.4f}",
                 }).highlight_max(subset=["R2"], color="rgba(16, 185, 129, 0.25)"),
                 use_container_width=True,
+                height=180,
             )
-
+            best_model = results_df.sort_values(by="R2", ascending=False).iloc[0]
+            st.caption(f"🏆 Top Estimator: **{best_model['model']}** with R² = **{best_model['R2']:.4f}** and MAE = **₹{best_model['MAE_INR']:,.0f}**")
+        with c_bench2:
             fig_benchmark = px.bar(
                 results_df,
                 x="model",
@@ -937,27 +953,19 @@ elif active_tab == "Model Benchmark & Tech":
                 plot_bgcolor="rgba(0,0,0,0)",
                 font=dict(color="#94a3b8"),
                 showlegend=False,
+                height=240,
+                margin=dict(t=20, b=25, l=40, r=20),
             )
-            st.plotly_chart(fig_benchmark, use_container_width=True)
-        else:
-            st.info("Execute train_model.py to refresh benchmark metrics.")
+            st.plotly_chart(fig_benchmark, use_container_width=True, config=CHART_CONFIG)
+    else:
+        st.info("Execute train_model.py to refresh benchmark metrics.")
 
-    with t2:
-        st.markdown("##### Pipeline Architecture")
-        st.markdown(
-            """
-            ```mermaid
-            graph TD
-                A[Input Features] --> B[ColumnTransformer]
-                B -->|Numeric| C[Median Imputer + StandardScaler]
-                B -->|Categorical| D[OneHotEncoder]
-                C --> E[GradientBoostingRegressor]
-                D --> E
-                E --> F[Calibrated Resale Price]
-            ```
-            """
-        )
-        st.markdown("##### Predictive Weight Breakdown")
+    st.markdown("---")
+
+    # Section 2: Feature Importance and Architecture
+    c_arch1, c_arch2 = st.columns([1, 1], gap="medium")
+    with c_arch1:
+        st.markdown("##### Predictive Weight Breakdown (Feature Importance)")
         features_df = pd.DataFrame({
             "Feature": [
                 "battery_capacity_kwh",
@@ -984,8 +992,53 @@ elif active_tab == "Model Benchmark & Tech":
             plot_bgcolor="rgba(0,0,0,0)",
             font=dict(color="#94a3b8"),
             yaxis=dict(autorange="reversed"),
+            height=320,
+            margin=dict(t=20, b=25, l=90, r=20),
         )
-        st.plotly_chart(fig_feat, use_container_width=True)
+        st.plotly_chart(fig_feat, use_container_width=True, config=CHART_CONFIG)
+
+    with c_arch2:
+        st.markdown("##### End-to-End Pipeline Architecture")
+        st.markdown(
+            """
+            <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 18px; font-family: 'Inter', sans-serif;">
+                <div style="text-align: center; margin-bottom: 8px;">
+                    <div style="display: inline-block; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); color: #60a5fa; padding: 6px 14px; border-radius: 8px; font-weight: 600; font-size: 0.84rem;">
+                        📥 Raw Input Features (8 Variables)
+                    </div>
+                </div>
+                <div style="text-align: center; color: #10b981; font-size: 0.9rem; line-height: 1;">↓</div>
+                <div style="text-align: center; margin: 6px 0;">
+                    <div style="display: inline-block; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399; padding: 6px 16px; border-radius: 8px; font-weight: 600; font-size: 0.84rem;">
+                        ⚙️ Scikit-Learn ColumnTransformer
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: center; gap: 10px; margin: 8px 0;">
+                    <div style="flex: 1; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 8px; text-align: center;">
+                        <div style="color: #94a3b8; font-size: 0.7rem; text-transform: uppercase;">Numeric Sub-Pipeline</div>
+                        <div style="color: #e2e8f0; font-size: 0.78rem; font-weight: 600; margin-top: 2px;">Median Imputer + StandardScaler</div>
+                    </div>
+                    <div style="flex: 1; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 8px; text-align: center;">
+                        <div style="color: #94a3b8; font-size: 0.7rem; text-transform: uppercase;">Categorical Sub-Pipeline</div>
+                        <div style="color: #e2e8f0; font-size: 0.78rem; font-weight: 600; margin-top: 2px;">OneHotEncoder</div>
+                    </div>
+                </div>
+                <div style="text-align: center; color: #10b981; font-size: 0.9rem; line-height: 1;">↓</div>
+                <div style="text-align: center; margin: 6px 0;">
+                    <div style="display: inline-block; background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.3); color: #c084fc; padding: 6px 16px; border-radius: 8px; font-weight: 600; font-size: 0.84rem;">
+                        🤖 GradientBoostingRegressor (250 Estimators)
+                    </div>
+                </div>
+                <div style="text-align: center; color: #10b981; font-size: 0.9rem; line-height: 1;">↓</div>
+                <div style="text-align: center; margin-top: 6px;">
+                    <div style="display: inline-block; background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 214, 160, 0.2)); border: 1px solid rgba(16, 185, 129, 0.5); color: #10b981; padding: 8px 18px; border-radius: 8px; font-weight: 700; font-size: 0.88rem;">
+                        🎯 Calibrated Resale Valuation (₹ INR)
+                    </div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
 # -----------------------------------------------------------------------------
 # Footer
