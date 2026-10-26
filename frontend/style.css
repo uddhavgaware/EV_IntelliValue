@@ -10,9 +10,11 @@
   --tr:0.3s cubic-bezier(0.4,0,0.2,1);
 }
 [data-theme="light"]{
-  --bg:#f0f4f8;--bg-2:#e2e8f0;--bg-card:rgba(255,255,255,0.85);
-  --border:rgba(0,0,0,0.08);--border-hover:rgba(0,0,0,0.16);
-  --text:#0f172a;--text-muted:#475569;--text-dim:#94a3b8;
+  --bg:#f8fafc;--bg-2:#f1f5f9;--bg-card:#ffffff;
+  --border:rgba(0,0,0,0.09);--border-hover:rgba(0,0,0,0.18);
+  --accent:#059669;--accent-2:#10b981;--blue:#2563eb;--purple:#7c3aed;--amber:#d97706;--red:#dc2626;
+  --text:#0f172a;--text-muted:#334155;--text-dim:#64748b;
+  --shadow:0 8px 30px rgba(0,0,0,0.06);
 }
 
 html{scroll-behavior:smooth}
@@ -921,5 +923,293 @@ label{display:block;font-size:0.85rem;font-weight:600;margin-bottom:6px;color:va
   }
 }
 
+/* ══ STUDIO SECTION ══ */
+.studio-section {
+  background: linear-gradient(180deg, rgba(10,22,40,0.6) 0%, rgba(5,11,21,0.9) 100%);
+  padding: 70px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
 
+/* ══ COMPREHENSIVE LIGHT THEME RULES ══ */
+[data-theme="light"] .studio-section {
+  background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+  border-top-color: var(--border);
+  border-bottom-color: var(--border);
+}
 
+/* Form Controls & Inputs */
+[data-theme="light"] .form-control {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  color: #0f172a;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+[data-theme="light"] .form-control:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.16);
+}
+[data-theme="light"] .form-control option {
+  background: #ffffff;
+  color: #0f172a;
+}
+[data-theme="light"] .search-input {
+  background: #ffffff;
+  color: #0f172a;
+}
+[data-theme="light"] .search-input::placeholder {
+  color: #94a3b8;
+}
+[data-theme="light"] .search-input-wrap {
+  background: #ffffff;
+}
+[data-theme="light"] .search-icon {
+  opacity: 0.6;
+}
+[data-theme="light"] .clear-search-btn {
+  color: #64748b;
+}
+[data-theme="light"] .clear-search-btn:hover {
+  color: #0f172a;
+}
+[data-theme="light"] label {
+  color: #334155;
+}
+
+/* Buttons & Navigation */
+[data-theme="light"] .btn-ghost {
+  background: rgba(0, 0, 0, 0.04);
+  color: #0f172a;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+[data-theme="light"] .btn-ghost:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+[data-theme="light"] .btn-outline {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+[data-theme="light"] .btn-outline:hover {
+  background: rgba(5, 150, 105, 0.08);
+}
+[data-theme="light"] .theme-toggle {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #0f172a;
+}
+[data-theme="light"] .theme-toggle:hover {
+  border-color: var(--accent);
+}
+[data-theme="light"] .navbar.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+[data-theme="light"] .nav-links a {
+  color: #475569;
+}
+[data-theme="light"] .nav-links a:hover,
+[data-theme="light"] .nav-links a.active {
+  background: rgba(0, 0, 0, 0.05);
+  color: #0f172a;
+}
+[data-theme="light"] .hamburger span {
+  background: #0f172a;
+}
+@media(max-width:768px){
+  [data-theme="light"] .nav-links {
+    background: rgba(255, 255, 255, 0.98);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+}
+
+/* Hero Section */
+[data-theme="light"] .hero-overlay {
+  background: linear-gradient(180deg, rgba(248, 250, 252, 0.35) 0%, rgba(248, 250, 252, 0.82) 60%, var(--bg) 100%);
+}
+[data-theme="light"] .hero-img {
+  opacity: 0.12;
+}
+[data-theme="light"] .hero-stats {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+[data-theme="light"] .stat-div {
+  background: rgba(0, 0, 0, 0.08);
+}
+[data-theme="light"] .scroll-arrow {
+  border-right-color: #64748b;
+  border-bottom-color: #64748b;
+}
+
+/* Brands Bar */
+[data-theme="light"] .brands-bar {
+  background: #f1f5f9;
+  border-color: rgba(0, 0, 0, 0.06);
+}
+[data-theme="light"] .brand-chip {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #334155;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* Glass & Card Surfaces */
+[data-theme="light"] .glass {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+}
+[data-theme="light"] .calc-card {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+}
+[data-theme="light"] .range-item {
+  background: #f1f5f9;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+[data-theme="light"] .factor-row {
+  background: #f8fafc;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+[data-theme="light"] .slider {
+  background: rgba(0, 0, 0, 0.1);
+}
+[data-theme="light"] .calc-status-bar {
+  background: #f1f5f9;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+[data-theme="light"] .status-pill {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #334155;
+}
+[data-theme="light"] .meta-box {
+  background: #f1f5f9;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* Feature & Gallery Cards */
+[data-theme="light"] .feature-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+[data-theme="light"] .feature-card:hover {
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+}
+[data-theme="light"] .ev-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+[data-theme="light"] .ev-card:hover {
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+}
+[data-theme="light"] .gallery-click-hint {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(5, 150, 105, 0.4);
+  color: #059669;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+[data-theme="light"] .ev-price-range {
+  background: rgba(5, 150, 105, 0.08);
+  border-color: rgba(5, 150, 105, 0.22);
+  color: #059669;
+}
+
+/* Comparison Section */
+[data-theme="light"] .cmp-vehicle-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+[data-theme="light"] .cmp-card-header {
+  background: #f8fafc;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+[data-theme="light"] .cmp-chem-pill {
+  background: #e2e8f0;
+  color: #334155;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+[data-theme="light"] .cmp-telemetry-grid {
+  background: #f1f5f9;
+}
+[data-theme="light"] .cmp-price-footer {
+  background: #f8fafc;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+[data-theme="light"] .cmp-vs-circle {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #64748b;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+[data-theme="light"] .cmp-verdict-box {
+  background: rgba(5, 150, 105, 0.06);
+  border-color: rgba(5, 150, 105, 0.25);
+}
+[data-theme="light"] .compare-table {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+[data-theme="light"] .cmp-row {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+[data-theme="light"] .cmp-row.header {
+  background: #f1f5f9;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  color: #475569;
+}
+[data-theme="light"] .cmp-row:hover:not(.header) {
+  background: #f8fafc;
+}
+[data-theme="light"] .cmp-row.highlight-row {
+  background: rgba(5, 150, 105, 0.04);
+}
+
+/* Charts & Benchmarks */
+[data-theme="light"] .bar-wrap {
+  background: rgba(0, 0, 0, 0.06);
+}
+[data-theme="light"] .r2-bar {
+  background: rgba(0, 0, 0, 0.06);
+}
+[data-theme="light"] .model-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+[data-theme="light"] .model-card.winner {
+  background: rgba(5, 150, 105, 0.04);
+  border-color: rgba(5, 150, 105, 0.35);
+  box-shadow: 0 4px 24px rgba(5, 150, 105, 0.08);
+}
+[data-theme="light"] .testi-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+/* FAQ & Footer */
+[data-theme="light"] .faq-item {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+[data-theme="light"] .faq-q {
+  color: #0f172a;
+}
+[data-theme="light"] .faq-q:hover {
+  color: var(--accent);
+}
+[data-theme="light"] .faq-a {
+  color: #475569;
+}
+[data-theme="light"] .footer {
+  background: #f1f5f9;
+  border-top-color: rgba(0, 0, 0, 0.08);
+}
+[data-theme="light"] .footer-bottom {
+  border-top-color: rgba(0, 0, 0, 0.08);
+}

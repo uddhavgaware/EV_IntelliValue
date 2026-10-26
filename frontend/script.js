@@ -372,11 +372,20 @@ window.addEventListener('load', () => {
 /* ─── DARK / LIGHT THEME TOGGLE ─── */
 const themeToggle = document.getElementById('themeToggle');
 const themeIcon   = themeToggle.querySelector('.theme-icon');
-let isDark = true;
+const savedTheme  = localStorage.getItem('ev_theme') || 'dark';
+let isDark = savedTheme !== 'light';
+
+function applyTheme(dark) {
+  isDark = dark;
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  themeIcon.textContent = dark ? '🌙' : '☀️';
+  localStorage.setItem('ev_theme', dark ? 'dark' : 'light');
+}
+
+applyTheme(isDark);
+
 themeToggle.addEventListener('click', () => {
-  isDark = !isDark;
-  document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-  themeIcon.textContent = isDark ? '🌙' : '☀️';
+  applyTheme(!isDark);
 });
 
 /* ─── NAVBAR SCROLL ─── */
