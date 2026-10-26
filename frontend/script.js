@@ -564,20 +564,31 @@ document.getElementById('calc-btn').addEventListener('click', async () => {
   }
 });
 
-/* ─── EXPANDED COMPARE TOOL (12 Models) ─── */
+/* ─── EXPANDED COMPARE TOOL (18 Indian EV Models - 2026 Resale Benchmarks) ─── */
 const CMP_DB = {
-  nexon:   { name:'Tata Nexon EV',       brand:'Tata',     seg:'Compact SUV',       bat:40.5, range:453, hwyRange:320, price:1450000, resale3y:1050000, chg:'50 kW DC (~56 min)', accel:'8.9s', fuel:'₹ 3.8L', war:'8 yr / 1.6L km', use:'City & Highway',     img:'assets/nexon-ev.jpg',  tagColor:'var(--accent)' },
-  curvv:   { name:'Tata Curvv EV',       brand:'Tata',     seg:'Coupe SUV',         bat:55.0, range:585, hwyRange:420, price:1750000, resale3y:1310000, chg:'70 kW DC (~45 min)', accel:'8.6s', fuel:'₹ 4.5L', war:'8 yr / 1.6L km', use:'Highway Cruiser',    img:'assets/curvv-ev.jpg',  tagColor:'#06b6d4' },
-  punch:   { name:'Tata Punch EV',       brand:'Tata',     seg:'Micro SUV',         bat:35.0, range:421, hwyRange:295, price:1099000, resale3y: 780000, chg:'50 kW DC (~60 min)', accel:'9.5s', fuel:'₹ 3.2L', war:'8 yr / 1.6L km', use:'City Runabout',      img:'assets/nexon-ev.jpg',  tagColor:'var(--accent)' },
-  mg:      { name:'MG ZS EV',            brand:'MG',       seg:'Midsize SUV',       bat:50.3, range:461, hwyRange:340, price:2150000, resale3y:1510000, chg:'50 kW DC (~55 min)', accel:'8.5s', fuel:'₹ 4.2L', war:'8 yr / 1.5L km', use:'Long Distance',      img:'assets/mg-zsev.jpg',   tagColor:'#3b82f6' },
-  windsor: { name:'MG Windsor EV',       brand:'MG',       seg:'Crossover',         bat:38.0, range:331, hwyRange:240, price:1350000, resale3y: 960000, chg:'45 kW DC (~60 min)', accel:'9.2s', fuel:'₹ 3.5L', war:'8 yr / 1.5L km', use:'Urban Commute',      img:'assets/mg-zsev.jpg',   tagColor:'#3b82f6' },
-  xuv:     { name:'Mahindra XUV400 EV',   brand:'Mahindra', seg:'Compact SUV',       bat:39.4, range:456, hwyRange:310, price:1550000, resale3y:1080000, chg:'50 kW DC (~50 min)', accel:'8.3s', fuel:'₹ 3.9L', war:'8 yr / 1.5L km', use:'Family & City',      img:'assets/xuv400.jpg',    tagColor:'#f59e0b' },
-  be6e:    { name:'Mahindra BE 6e',       brand:'Mahindra', seg:'Next-Gen SUV',      bat:59.0, range:550, hwyRange:400, price:1890000, resale3y:1380000, chg:'175 kW DC (~20 min)',accel:'6.7s', fuel:'₹ 4.8L', war:'8 yr / 1.5L km', use:'Tech-First Buyers',  img:'assets/xuv400.jpg',    tagColor:'#f59e0b' },
-  ioniq:   { name:'Hyundai Ioniq 5',      brand:'Hyundai',  seg:'Premium Crossover', bat:72.6, range:631, hwyRange:470, price:4600000, resale3y:3250000, chg:'350 kW DC (~18 min)',accel:'5.2s', fuel:'₹ 6.2L', war:'8 yr / 1.6L km', use:'Premium Touring',    img:'assets/ioniq5.jpg',    tagColor:'#8b5cf6' },
-  creta:   { name:'Hyundai Creta EV',     brand:'Hyundai',  seg:'Midsize SUV',       bat:45.0, range:473, hwyRange:330, price:1790000, resale3y:1290000, chg:'50 kW DC (~50 min)', accel:'8.8s', fuel:'₹ 4.0L', war:'8 yr / 1.6L km', use:'Family Versatile',   img:'assets/ioniq5.jpg',    tagColor:'#8b5cf6' },
-  atto:    { name:'BYD Atto 3',           brand:'BYD',      seg:'Midsize SUV',       bat:60.5, range:521, hwyRange:380, price:2499000, resale3y:1750000, chg:'80 kW DC (~45 min)', accel:'7.3s', fuel:'₹ 5.0L', war:'8 yr / 1.6L km', use:'Long Range Comfort',img:'assets/atto3.jpg',     tagColor:'#ef4444' },
-  seal:    { name:'BYD Seal',             brand:'BYD',      seg:'Performance Sedan', bat:82.5, range:650, hwyRange:490, price:4100000, resale3y:2870000, chg:'150 kW DC (~30 min)',accel:'3.8s', fuel:'₹ 6.5L', war:'8 yr / 2.0L km', use:'Performance Driver', img:'assets/atto3.jpg',     tagColor:'#ef4444' },
-  ev6:     { name:'Kia EV6 GT',           brand:'Kia',      seg:'Crossover GT',      bat:77.4, range:708, hwyRange:520, price:6095000, resale3y:4270000, chg:'350 kW DC (~18 min)',accel:'3.5s', fuel:'₹ 7.0L', war:'10 yr / 1.6L km',use:'Performance GT',     img:'assets/ioniq5.jpg',    tagColor:'#dc2626' },
+  // Budget & Commuter (< ₹15L)
+  tiago:   { name:'Tata Tiago EV',       brand:'Tata',     seg:'City Hatchback',   bat:24.0, chem:'LFP',      range:315, hwyRange:210, price: 849000, resale3y: 509000, chg:'25 kW DC (~57 min)', accel:'12.0s',fuel:'₹ 2.5L', war:'8 yr / 1.6L km', warTrans:'Fully Transferable', use:'Daily Urban Commute',  tagColor:'#10b981' },
+  punch:   { name:'Tata Punch EV',       brand:'Tata',     seg:'Micro SUV',        bat:35.0, chem:'LFP',      range:421, hwyRange:295, price:1199000, resale3y: 719000, chg:'50 kW DC (~56 min)', accel:'9.5s', fuel:'₹ 3.2L', war:'8 yr / 1.6L km', warTrans:'Fully Transferable', use:'City & Weekend Trips',tagColor:'#10b981' },
+  tigor:   { name:'Tata Tigor EV',       brand:'Tata',     seg:'Compact Sedan',    bat:26.0, chem:'LFP',      range:315, hwyRange:205, price:1249000, resale3y: 599000, chg:'25 kW DC (~65 min)', accel:'12.2s',fuel:'₹ 2.8L', war:'8 yr / 1.6L km', warTrans:'Fully Transferable', use:'Commercial & Fleet',    tagColor:'#10b981' },
+  comet:   { name:'MG Comet EV',         brand:'MG',       seg:'Micro City Car',   bat:17.3, chem:'LFP',      range:230, hwyRange:150, price: 699000, resale3y: 419000, chg:'3.3/7.4 kW AC (~3.5h)',accel:'14.0s',fuel:'₹ 1.8L', war:'8 yr / 1.2L km', warTrans:'Fully Transferable', use:'Dense City Commute',   tagColor:'#3b82f6' },
+  ec3:     { name:'Citroën ë-C3',        brand:'Citroën',  seg:'Cross-Hatch',      bat:29.2, chem:'LFP',      range:320, hwyRange:215, price:1161000, resale3y: 580000, chg:'30 kW DC (~57 min)', accel:'15.3s',fuel:'₹ 2.9L', war:'7 yr / 1.4L km', warTrans:'Fully Transferable', use:'Budget Family Run',   tagColor:'#eab308' },
+
+  // Mainstream SUVs & Crossovers (₹15L – ₹30L)
+  nexon:   { name:'Tata Nexon EV',       brand:'Tata',     seg:'Compact SUV',      bat:40.5, chem:'LFP',      range:453, hwyRange:320, price:1449000, resale3y: 782000, chg:'50 kW DC (~56 min)', accel:'8.9s', fuel:'₹ 3.8L', war:'8 yr / 1.6L km', warTrans:'Fully Transferable', use:'Family All-Rounder',  tagColor:'#10b981' },
+  curvv:   { name:'Tata Curvv EV',       brand:'Tata',     seg:'Coupe SUV',        bat:55.0, chem:'LFP',      range:585, hwyRange:420, price:1749000, resale3y: 962000, chg:'70 kW DC (~45 min)', accel:'8.6s', fuel:'₹ 4.5L', war:'8 yr / 1.6L km', warTrans:'Fully Transferable', use:'Highway Touring',      tagColor:'#06b6d4' },
+  windsor: { name:'MG Windsor EV',       brand:'MG',       seg:'Aero Crossover',   bat:38.0, chem:'LFP',      range:331, hwyRange:245, price:1349000, resale3y: 728000, chg:'45 kW DC (~55 min)', accel:'9.2s', fuel:'₹ 3.5L', war:'Lifetime 1st / 8yr', warTrans:'8 Yr on 2nd Owner',  use:'Comfort Cruiser',     tagColor:'#3b82f6' },
+  mg:      { name:'MG ZS EV',            brand:'MG',       seg:'Midsize SUV',      bat:50.3, chem:'LFP',      range:461, hwyRange:340, price:2149000, resale3y:1117000, chg:'50 kW DC (~55 min)', accel:'8.5s', fuel:'₹ 4.2L', war:'8 yr / 1.5L km', warTrans:'Fully Transferable', use:'Long Distance Tour',  tagColor:'#3b82f6' },
+  xuv:     { name:'Mahindra XUV400 EV',  brand:'Mahindra', seg:'Compact SUV',      bat:39.4, chem:'NMC',      range:456, hwyRange:305, price:1549000, resale3y: 774000, chg:'50 kW DC (~50 min)', accel:'8.3s', fuel:'₹ 3.9L', war:'8 yr / 1.5L km', warTrans:'Fully Transferable', use:'Spirited Performance',tagColor:'#f59e0b' },
+  be6e:    { name:'Mahindra BE 6e',      brand:'Mahindra', seg:'Next-Gen SUV',     bat:59.0, chem:'LFP Blade',range:550, hwyRange:400, price:1890000, resale3y:1039000, chg:'175 kW DC (~20 min)',accel:'6.7s', fuel:'₹ 4.8L', war:'Lifetime 1st / 8yr', warTrans:'8 Yr on Resale',     use:'Tech-First Enthusiast',tagColor:'#f59e0b' },
+  xev9e:   { name:'Mahindra XEV 9e',     brand:'Mahindra', seg:'Flagship SUV',     bat:79.0, chem:'LFP Blade',range:656, hwyRange:480, price:2190000, resale3y:1204000, chg:'175 kW DC (~20 min)',accel:'6.8s', fuel:'₹ 5.2L', war:'Lifetime 1st / 8yr', warTrans:'8 Yr on Resale',     use:'Luxury Long-Hauler',  tagColor:'#f59e0b' },
+  creta:   { name:'Hyundai Creta EV',    brand:'Hyundai',  seg:'Midsize SUV',      bat:45.0, chem:'NMC',      range:473, hwyRange:335, price:1790000, resale3y: 966000, chg:'50 kW DC (~50 min)', accel:'8.8s', fuel:'₹ 4.0L', war:'8 yr / 1.6L km', warTrans:'Fully Transferable', use:'Family Versatile',    tagColor:'#8b5cf6' },
+  kona:    { name:'Hyundai Kona Electric',brand:'Hyundai', seg:'Compact Crossover',bat:39.2, chem:'NMC',      range:452, hwyRange:300, price:2380000, resale3y:1071000, chg:'50 kW DC (~57 min)', accel:'9.7s', fuel:'₹ 3.8L', war:'8 yr / 1.6L km', warTrans:'Fully Transferable', use:'Early Adopter Classic',tagColor:'#8b5cf6' },
+  atto:    { name:'BYD Atto 3',          brand:'BYD',      seg:'Midsize SUV',      bat:60.5, chem:'LFP Blade',range:521, hwyRange:380, price:2499000, resale3y:1299000, chg:'80 kW DC (~45 min)', accel:'7.3s', fuel:'₹ 5.0L', war:'8 yr / 1.6L km', warTrans:'Fully Transferable', use:'Premium Refinement',  tagColor:'#ef4444' },
+
+  // Premium & Performance (> ₹30L)
+  seal:    { name:'BYD Seal',            brand:'BYD',      seg:'Performance Sedan',bat:82.5, chem:'LFP Blade',range:650, hwyRange:490, price:4100000, resale3y:2132000, chg:'150 kW DC (~30 min)',accel:'3.8s', fuel:'₹ 6.5L', war:'8 yr / 2.0L km', warTrans:'Fully Transferable', use:'Executive Driver',    tagColor:'#ef4444' },
+  ioniq:   { name:'Hyundai Ioniq 5',     brand:'Hyundai',  seg:'Premium Crossover',bat:72.6, chem:'NMC',      range:631, hwyRange:470, price:4600000, resale3y:2438000, chg:'350 kW DC (~18 min)',accel:'5.2s', fuel:'₹ 6.2L', war:'8 yr / 1.6L km', warTrans:'Fully Transferable', use:'Interstate GT',       tagColor:'#8b5cf6' },
+  ev6:     { name:'Kia EV6 GT',          brand:'Kia',      seg:'Crossover GT',     bat:77.4, chem:'NMC',      range:708, hwyRange:520, price:6095000, resale3y:3108000, chg:'350 kW DC (~18 min)',accel:'3.5s', fuel:'₹ 7.0L', war:'8 yr / 1.6L km', warTrans:'Fully Transferable', use:'Supercar Acceleration',tagColor:'#dc2626' },
 };
 
 function fmtLakh(v) { return '₹ ' + (v / 100000).toFixed(1) + ' Lakh'; }
@@ -588,23 +599,40 @@ function updateCmpVisuals() {
   const a = CMP_DB[aKey], b = CMP_DB[bKey];
   if (!a || !b) return;
 
-  // Update visual preview cards
   const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
-  const setImg = (id, src) => { const el = document.getElementById(id); if (el) el.src = src; };
   const setStyle = (id, prop, val) => { const el = document.getElementById(id); if (el) el.style[prop] = val; };
 
-  setImg('cmp-img-a', a.img);
-  setImg('cmp-img-b', b.img);
+  // Tag & Badges
   setEl('cmp-tag-a', a.brand);
   setEl('cmp-tag-b', b.brand);
   setStyle('cmp-tag-a', 'background', a.tagColor);
   setStyle('cmp-tag-b', 'background', b.tagColor);
+  setEl('cmp-chem-tag-a', a.chem);
+  setEl('cmp-chem-tag-b', b.chem);
+
+  // Headers
   setEl('cmp-head-a', a.name);
   setEl('cmp-head-b', b.name);
   setEl('cmp-seg-a', a.seg);
   setEl('cmp-seg-b', b.seg);
-  setEl('cmp-quickprice-a', fmtLakh(a.price) + ' (New)');
-  setEl('cmp-quickprice-b', fmtLakh(b.price) + ' (New)');
+
+  // Telemetry Grid
+  setEl('cmp-tel-bat-a', a.bat + ' kWh');
+  setEl('cmp-tel-bat-b', b.bat + ' kWh');
+  setEl('cmp-tel-range-a', '~' + a.hwyRange + ' km');
+  setEl('cmp-tel-range-b', '~' + b.hwyRange + ' km');
+  setEl('cmp-tel-acc-a', a.accel);
+  setEl('cmp-tel-acc-b', b.accel);
+  setEl('cmp-tel-chg-a', a.chg.split(' ')[0] + ' ' + a.chg.split(' ')[1]);
+  setEl('cmp-tel-chg-b', b.chg.split(' ')[0] + ' ' + b.chg.split(' ')[1]);
+
+  // Price & 2026 Resale Benchmarks
+  const retA = Math.round((a.resale3y / a.price) * 100);
+  const retB = Math.round((b.resale3y / b.price) * 100);
+  setEl('cmp-quickprice-a', fmtLakh(a.price));
+  setEl('cmp-quickprice-b', fmtLakh(b.price));
+  setEl('cmp-quickresale-a', `${fmtLakh(a.resale3y)} (${retA}%)`);
+  setEl('cmp-quickresale-b', `${fmtLakh(b.resale3y)} (${retB}%)`);
 }
 
 // Live-update visual cards and specs
@@ -625,10 +653,12 @@ function runComparison(smoothScroll = false) {
   setEl('cmp-segm-b', b.seg);
   setEl('cmp-bat-a', a.bat + ' kWh');
   setEl('cmp-bat-b', b.bat + ' kWh');
+  setEl('cmp-chem-a', `${a.chem} Battery`);
+  setEl('cmp-chem-b', `${b.chem} Battery`);
   setEl('cmp-range-a', a.range + ' km');
   setEl('cmp-range-b', b.range + ' km');
-  setEl('cmp-hwyrange-a', '~' + a.hwyRange + ' km');
-  setEl('cmp-hwyrange-b', '~' + b.hwyRange + ' km');
+  setEl('cmp-hwyrange-a', '~' + a.hwyRange + ' km (Real Hwy)');
+  setEl('cmp-hwyrange-b', '~' + b.hwyRange + ' km (Real Hwy)');
   setEl('cmp-chg-a', a.chg);
   setEl('cmp-chg-b', b.chg);
   setEl('cmp-accel-a', a.accel);
@@ -637,31 +667,41 @@ function runComparison(smoothScroll = false) {
   setEl('cmp-price-b', fmtLakh(b.price));
   setEl('cmp-resale-a', fmtLakh(a.resale3y));
   setEl('cmp-resale-b', fmtLakh(b.resale3y));
+
+  const retA = Math.round((a.resale3y / a.price) * 100);
+  const retB = Math.round((b.resale3y / b.price) * 100);
+  setEl('cmp-ret-a', `${retA}% (3-Yr Retention)`);
+  setEl('cmp-ret-b', `${retB}% (3-Yr Retention)`);
+
   setEl('cmp-fuel-a', a.fuel);
   setEl('cmp-fuel-b', b.fuel);
   setEl('cmp-war-a', a.war);
   setEl('cmp-war-b', b.war);
+  setEl('cmp-wartrans-a', a.warTrans || 'Transferable');
+  setEl('cmp-wartrans-b', b.warTrans || 'Transferable');
   setEl('cmp-use-a', a.use);
   setEl('cmp-use-b', b.use);
 
-  // Generate smart verdict
-  const batDiff = Math.round(((b.bat - a.bat) / a.bat) * 100);
-  const rangeDiff = Math.round(((b.range - a.range) / a.range) * 100);
+  // Generate smart verdict based on 2026 market intelligence
   const priceDiff = Math.round(((b.price - a.price) / a.price) * 100);
-  const resaleDiffA = Math.round((a.resale3y / a.price) * 100);
-  const resaleDiffB = Math.round((b.resale3y / b.price) * 100);
 
-  let verdict = `${a.name} `;
-  if (a.price < b.price) verdict += `is ${Math.abs(priceDiff)}% more affordable`;
-  else verdict += `commands a ${Math.abs(priceDiff)}% premium`;
-  verdict += ` with ${a.bat} kWh battery (${a.seg}). `;
-  verdict += `${b.name} offers `;
-  if (batDiff > 0) verdict += `+${batDiff}% more battery capacity and `;
-  else verdict += `${batDiff}% less battery but `;
-  if (rangeDiff > 0) verdict += `+${rangeDiff}% more range. `;
-  else verdict += `a more compact package. `;
-  verdict += `3-year value retention: ${a.name} ${resaleDiffA}% vs ${b.name} ${resaleDiffB}%.`;
-  setEl('cmpVerdictText', verdict);
+  let verdict = `<strong>${a.name} vs ${b.name}:</strong> `;
+  if (a.price < b.price) {
+    verdict += `${a.name} is ₹${((b.price - a.price) / 100000).toFixed(1)} Lakh (${Math.abs(priceDiff)}%) more accessible upfront with a ${a.bat} kWh pack. `;
+  } else {
+    verdict += `${a.name} commands a ₹${((a.price - b.price) / 100000).toFixed(1)} Lakh (${Math.abs(priceDiff)}%) premium over ${b.name}. `;
+  }
+
+  if (a.chem === 'LFP' && b.chem === 'NMC') {
+    verdict += `${a.name}'s LFP chemistry provides superior resistance against thermal degradation in Indian climates, while ${b.name}'s NMC pack delivers punchier acceleration. `;
+  } else if (a.chem === 'NMC' && b.chem === 'LFP') {
+    verdict += `${a.name} uses NMC cells for lighter weight and power density, whereas ${b.name}'s LFP chemistry offers longer multi-year cycle longevity. `;
+  }
+
+  verdict += `In the secondary market, 3-year value retention is <strong>${retA}%</strong> for ${a.name} vs <strong>${retB}%</strong> for ${b.name}. Market pricing is heavily governed by verified Battery State-of-Health (SOH %) and warranty transferability.`;
+
+  const verdictEl = document.getElementById('cmpVerdictText');
+  if (verdictEl) verdictEl.innerHTML = verdict;
 
   if (smoothScroll) {
     document.getElementById('cmpTable').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
