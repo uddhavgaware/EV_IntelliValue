@@ -572,15 +572,20 @@ elif active_tab == "Market Analytics":
         c_scatter1, c_scatter2 = st.columns(2)
         with c_scatter1:
             st.markdown("##### Depreciation vs Odometer Mileage")
-            fig_km = px.scatter(
-                dataset_df.sample(min(400, len(dataset_df)), random_state=42),
-                x="km_driven",
-                y="selling_price_inr",
-                color="brand",
-                trendline="ols",
-                labels={"km_driven": "Kilometres Driven", "selling_price_inr": "Price (INR)"},
-                opacity=0.7,
-            )
+            scatter_kwargs = {
+                "data_frame": dataset_df.sample(min(400, len(dataset_df)), random_state=42),
+                "x": "km_driven",
+                "y": "selling_price_inr",
+                "color": "brand",
+                "labels": {"km_driven": "Kilometres Driven", "selling_price_inr": "Price (INR)"},
+                "opacity": 0.7,
+            }
+            try:
+                import statsmodels.api
+                scatter_kwargs["trendline"] = "ols"
+            except ImportError:
+                pass
+            fig_km = px.scatter(**scatter_kwargs)
             fig_km.update_layout(
                 paper_bgcolor="rgba(0,0,0,0)",
                 plot_bgcolor="rgba(0,0,0,0)",
